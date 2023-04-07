@@ -1,0 +1,659 @@
+title: "la_core_cltk_md"
+description: "Code required to train spaCy-compatible md core model for Latin, i.e pipeline with POS tagger, morphologizer, lemmatizer, dependency parser, and NER trained on all available Latin UD treebanks, i.e. Perseus, PROIEL, ITTB, UDante, and LLCT (see below). The model contains floret vectors trained on Wikipedia, Oscar, and UD data. NER is based on custom tagged data based on tagger output and manual annotation; this data is included in `assets/local/ud-ner.tsv`. Note also that a sm model (i.e. without vectors) is trained in the same pipeline as are dep models (i.e. with NER component)."
+
+vars:
+  config: "config"
+  lang: "la"
+  sm_dep_package_name: "dep_cltk_sm"
+  md_dep_package_name: "dep_cltk_md"
+  sm_core_package_name: "core_cltk_sm"
+  md_core_package_name: "core_cltk_md"
+  dep_package_version: "0.4.0"
+  core_package_version: "0.4.0"
+  gpu: -1
+  treebank_pers: "UD_Latin-Perseus"
+  treebank_proi: "UD_Latin-PROIEL"
+  treebank_ittb: "UD_Latin-ITTB"
+  treebank_llct: "UD_Latin-LLCT"
+  treebank_udan: "UD_Latin-UDante"
+  treebank_pers_data: "mod-la_perseus-ud"
+  treebank_proi_data: "mod-la_proiel-ud"
+  treebank_ittb_data: "mod-la_ittb-ud"
+  treebank_llct_data: "mod-la_llct-ud"
+  treebank_udan_data: "mod-la_udante-ud"
+  # Vectors vars
+  # cf. https://github.com/explosion/projects/tree/v3/pipelines/floret_wiki_oscar_vectors
+  n_process: 16
+  # The defaults assume that you have a large hard drive mounted under /scratch
+  downloaded_dir: "vectors/downloaded"
+  extracted_dir: "vectors/extracted"
+  tokenized_dir: "vectors/tokenized"
+  wikipedia_version: "latest"
+  oscar_dataset: "oscar"
+  oscar_dataset_subset: "unshuffled_deduplicated_${vars.lang}"
+  oscar_dataset_split: "train"
+  # # Limit for large languages like English, Spanish, Chinese, Russian
+  # # Check the size of the raw corpus (under the column "Size deduplicated"):
+  # # https://oscar-corpus.com/post/oscar-2019/
+  oscar_max_texts: -1
+  vector_input_dir: "vectors/input"
+  vector_model: "cbow"
+  # For languages with alphabets: minn/maxn 4/5 or 5/5 is a good starting point.
+  vector_minn: 5
+  vector_maxn: 5
+  vector_epoch: 5
+  vector_dim: 300
+  vector_neg: 10
+  vector_bucket: 50000
+  vector_min_count: 20
+  vector_hash_count: 2
+  vector_thread: 16
+  vector_lr: 0.05  
+  # NER vars
+  ner_train: "ner/ner_train.json"
+  ner_dev: "ner/ner_dev.json"
+
+spacy_version: ">=3.4.2,<3.6.0"
+check_requirements: true
+
+directories: ["assets", "corpus", "training", "configs", "metrics", "packages", "scripts", "vectors"]
+
+# NB: spacy projects assets fails with smart-open==6.2.0; downgraded to 5.2.1
+assets:
+  - dest: "assets/original/${vars.treebank_pers}"
+    git:
+      repo: "https://github.com/UniversalDependencies/${vars.treebank_pers}"
+      branch: "master"
+      path: ""
+  - dest: "assets/original/${vars.treebank_proi}"
+    git:
+      repo: "https://github.com/UniversalDependencies/${vars.treebank_proi}"
+      branch: "master"
+      path: ""
+  - dest: "assets/original/${vars.treebank_ittb}"
+    git:
+      repo: "https://github.com/UniversalDependencies/${vars.treebank_ittb}"
+      branch: "master"
+      path: ""
+  - dest: "assets/original/${vars.treebank_llct}"
+    git:
+      repo: "https://github.com/UniversalDependencies/${vars.treebank_llct}"
+      branch: "master"
+      path: ""
+  - dest: "assets/original/${vars.treebank_udan}"
+    git:
+      repo: "https://github.com/UniversalDependencies/${vars.treebank_udan}"
+      branch: "master"
+      path: ""
+  - dest: "${vars.downloaded_dir}/wikipedia/${vars.lang}wiki-${vars.wikipedia_version}-pages-articles.xml.bz2"
+    url: "https://dumps.wikimedia.org/${vars.lang}wiki/${vars.wikipedia_version}/${vars.lang}wiki-${vars.wikipedia_version}-pages-articles.xml.bz2"
+
+workflows:
+  all:
+    - assets 
+    - preprocess 
+    - convert 
+    - norm-corpus    
+    - extract-wikipedia
+    - tokenize-wikipedia
+    - tokenize-oscar
+    - tokenize-ud
+    - create-input
+    - train-floret-vectors
+    - load-vectors
+    - init-labels
+    - train-sm
+    - train
+    - evaluate-sm
+    - evaluate
+    - convert-ner
+    - create-ner-config
+    - train-ner-sm
+    - assemble-sm-core
+    - assemble-md-core
+    - assemble-meta
+    - package-sm-dep
+    - package-sm-core
+    - package-md-dep
+    - package-md-core
+    - document    
+    # - clean
+
+commands:
+  - name: assets
+    help: "Download assets"
+    script:
+      - "mkdir -p assets/original"
+      - python -m spacy project assets
+
+  - name: preprocess
+    help: "Convert different UD treebanks so that they use shared formatting, feature defs, etc."
+    script:
+      - "mkdir -p assets/preprocess"
+      - python scripts/conllu2tsv.py 
+      - python scripts/norm_lemma.py 
+      - python scripts/remove_perseus_nec.py
+      - python scripts/analyze_feats.py 
+      - "mkdir -p assets/processed"
+      - python scripts/tsv2conllu.py 
+
+  - name: convert
+    help: "Convert the data to spaCy's format"
+    script:
+      - "mkdir -p corpus/train"
+      - "mkdir -p corpus/dev"
+      - "mkdir -p corpus/test"
+      - >-
+        python -m spacy convert
+        assets/processed/${vars.treebank_pers_data}-train.conllu 
+        corpus/ 
+        --converter conllu 
+        --n-sents 10 
+        --merge-subtokens
+      - >-
+        python -m spacy convert
+        assets/processed/${vars.treebank_pers_data}-test.conllu 
+        corpus/ 
+        --converter conllu 
+        --n-sents 10 
+        --merge-subtokens
+      - >-
+        python -m spacy convert
+        assets/processed/${vars.treebank_proi_data}-train.conllu 
+        corpus/ 
+        --converter conllu 
+        --n-sents 10 
+        --merge-subtokens
+      - >-
+        python -m spacy convert
+        assets/processed/${vars.treebank_proi_data}-dev.conllu 
+        corpus/ 
+        --converter conllu 
+        --n-sents 10 
+        --merge-subtokens
+      - >-
+        python -m spacy convert
+        assets/processed/${vars.treebank_proi_data}-test.conllu 
+        corpus/ 
+        --converter conllu 
+        --n-sents 10 
+        --merge-subtokens
+      - >-
+        python -m spacy convert
+        assets/processed/${vars.treebank_ittb_data}-train.conllu 
+        corpus/ 
+        --converter conllu 
+        --n-sents 10 
+        --merge-subtokens
+      - >-
+        python -m spacy convert
+        assets/processed/${vars.treebank_ittb_data}-dev.conllu 
+        corpus/ 
+        --converter conllu 
+        --n-sents 10 
+        --merge-subtokens
+      - >-
+        python -m spacy convert
+        assets/processed/${vars.treebank_ittb_data}-test.conllu 
+        corpus/ 
+        --converter conllu 
+        --n-sents 10 
+        --merge-subtokens
+      - >-
+        python -m spacy convert
+        assets/processed/${vars.treebank_llct_data}-train.conllu 
+        corpus/ 
+        --converter conllu 
+        --n-sents 10 
+        --merge-subtokens
+      - >-
+        python -m spacy convert
+        assets/processed/${vars.treebank_llct_data}-dev.conllu 
+        corpus/ 
+        --converter conllu 
+        --n-sents 10 
+        --merge-subtokens
+      - >-
+        python -m spacy convert
+        assets/processed/${vars.treebank_llct_data}-test.conllu 
+        corpus/ 
+        --converter conllu 
+        --n-sents 10 
+        --merge-subtokens
+      - >-
+        python -m spacy convert
+        assets/processed/${vars.treebank_udan_data}-train.conllu 
+        corpus/ 
+        --converter conllu 
+        --n-sents 10 
+        --merge-subtokens
+      - >-
+        python -m spacy convert
+        assets/processed/${vars.treebank_udan_data}-dev.conllu 
+        corpus/ 
+        --converter conllu 
+        --n-sents 10 
+        --merge-subtokens
+      - >-
+        python -m spacy convert
+        assets/processed/${vars.treebank_udan_data}-test.conllu 
+        corpus/ 
+        --converter conllu 
+        --n-sents 10 
+        --merge-subtokens
+      - sh -c 'mv corpus/*train.spacy corpus/train/'
+      - sh -c 'mv corpus/*dev.spacy corpus/dev/'
+      - sh -c 'mv corpus/*test.spacy corpus/test/'
+    deps:
+      - "assets/processed/${vars.treebank_pers_data}-train.conllu"
+      - "assets/processed/${vars.treebank_pers_data}-test.conllu"
+      - "assets/processed/${vars.treebank_proi_data}-train.conllu"
+      - "assets/processed/${vars.treebank_proi_data}-dev.conllu"
+      - "assets/processed/${vars.treebank_proi_data}-test.conllu"
+      - "assets/processed/${vars.treebank_ittb_data}-train.conllu"
+      - "assets/processed/${vars.treebank_ittb_data}-dev.conllu"
+      - "assets/processed/${vars.treebank_ittb_data}-test.conllu"
+      - "assets/processed/${vars.treebank_llct_data}-train.conllu"
+      - "assets/processed/${vars.treebank_llct_data}-dev.conllu"
+      - "assets/processed/${vars.treebank_llct_data}-test.conllu"
+      - "assets/processed/${vars.treebank_udan_data}-train.conllu"
+      - "assets/processed/${vars.treebank_udan_data}-dev.conllu"
+      - "assets/processed/${vars.treebank_udan_data}-test.conllu"
+    outputs:
+      - "corpus/train/${vars.treebank_pers_data}-train.spacy"
+      - "corpus/train/${vars.treebank_proi_data}-train.spacy"      
+      - "corpus/train/${vars.treebank_ittb_data}-train.spacy"      
+      - "corpus/train/${vars.treebank_llct_data}-train.spacy"
+      - "corpus/train/${vars.treebank_udan_data}-train.spacy"
+      - "corpus/dev/${vars.treebank_proi_data}-dev.spacy"
+      - "corpus/dev/${vars.treebank_ittb_data}-dev.spacy"
+      - "corpus/dev/${vars.treebank_llct_data}-dev.spacy"
+      - "corpus/dev/${vars.treebank_udan_data}-dev.spacy"
+      - "corpus/test/${vars.treebank_pers_data}-test.spacy"
+      - "corpus/test/${vars.treebank_proi_data}-test.spacy"
+      - "corpus/test/${vars.treebank_ittb_data}-test.spacy"
+      - "corpus/test/${vars.treebank_llct_data}-test.spacy"
+      - "corpus/test/${vars.treebank_udan_data}-test.spacy"
+  
+  - name: "norm-corpus"
+    help: "Convert norm attribute to u-v and i-j norm"
+    script:
+      - python scripts/norm_docbin.py
+
+  - name: "extract-wikipedia"
+    help: "Convert Wikipedia XML to JSONL with wikiextractor"
+    script:
+      - >-
+        python -m wikiextractor.WikiExtractor
+        --json --no-templates -b 1000G -q
+        --processes ${vars.n_process}
+        ${vars.downloaded_dir}/wikipedia/${vars.lang}wiki-${vars.wikipedia_version}-pages-articles.xml.bz2
+        -o ${vars.extracted_dir}/${vars.lang}_wiki_${vars.wikipedia_version}/
+    outputs:
+      - "${vars.extracted_dir}/${vars.lang}_wiki_${vars.wikipedia_version}/AA/wiki_00"
+  
+  - name: "tokenize-wikipedia"
+    help: "Tokenize and sentencize Wikipedia"
+    script:
+      - >-
+        python scripts/tokenize_resource.py ${vars.lang}
+        ${vars.tokenized_dir}/${vars.lang}_wiki_${vars.wikipedia_version}.txt
+        --input-jsonl ${vars.extracted_dir}/${vars.lang}_wiki_${vars.wikipedia_version}/AA/wiki_00
+        --n-process ${vars.n_process}
+    deps:
+      - "scripts/tokenize_resource.py"
+      - "${vars.extracted_dir}/${vars.lang}_wiki_${vars.wikipedia_version}/AA/wiki_00"
+    outputs:
+      - "${vars.tokenized_dir}/${vars.lang}_wiki_${vars.wikipedia_version}.txt"
+
+  - name: "tokenize-oscar"
+    help: "Tokenize and sentencize OSCAR dataset"
+    script:
+      - >-
+        python scripts/tokenize_resource.py ${vars.lang}
+        ${vars.tokenized_dir}/${vars.lang}_oscar_${vars.oscar_dataset_subset}.txt
+        --input-dataset ${vars.oscar_dataset}
+        --dataset-subset ${vars.oscar_dataset_subset}
+        --dataset-split ${vars.oscar_dataset_split}
+        --n-process=${vars.n_process}
+        --max-texts=${vars.oscar_max_texts}
+    deps:
+      - "scripts/tokenize_resource.py"
+    outputs:
+      - "${vars.tokenized_dir}/${vars.lang}_oscar_${vars.oscar_dataset_subset}.txt"
+
+  - name: "tokenize-ud"
+    help: "Tokenize and sentencize UD; following wikipedia/oscar pattern"
+    script:
+      - python scripts/sentencize_ud.py
+
+  - name: "create-input"
+    help: "Concatenate tokenized input texts"
+    script:
+      - >-
+        python scripts/concat_files.py 
+        --input-file ${vars.tokenized_dir}/${vars.lang}_wiki_${vars.wikipedia_version}.txt
+        --input-file ${vars.tokenized_dir}/${vars.lang}_oscar_${vars.oscar_dataset_subset}.txt
+        --input-file ${vars.tokenized_dir}/${vars.lang}_ud.txt
+        ${vars.vector_input_dir}/${vars.lang}.txt
+      - python scripts/vector_input_norm.py
+    deps:
+      - "scripts/concat_files.py"
+      - "${vars.tokenized_dir}/${vars.lang}_wiki_${vars.wikipedia_version}.txt"
+      - "${vars.tokenized_dir}/${vars.lang}_oscar_${vars.oscar_dataset_subset}.txt"
+    outputs:
+      - "${vars.vector_input_dir}/${vars.lang}.txt"
+
+  - name: "train-floret-vectors"
+    help: "Train floret vectors"
+    script:
+      - >-
+        python scripts/train_floret.py
+        --mode floret
+        --model ${vars.vector_model}
+        --dim ${vars.vector_dim}
+        --mincount ${vars.vector_min_count}
+        --minn ${vars.vector_minn}
+        --maxn ${vars.vector_maxn}
+        --neg ${vars.vector_neg}
+        --epoch ${vars.vector_epoch}
+        --hashcount ${vars.vector_hash_count}
+        --bucket ${vars.vector_bucket}
+        --thread ${vars.vector_thread}
+        --lr ${vars.vector_lr}
+        ${vars.vector_input_dir}/${vars.lang}.txt
+        vectors/${vars.lang}
+    deps:
+      - "scripts/train_floret.py"
+      - "${vars.vector_input_dir}/${vars.lang}.txt"
+    outputs:
+      - "vectors/${vars.lang}.floret"
+
+  - name: load-vectors
+    help: "Load floret vectors"
+    script: 
+      - >-
+        python -m spacy init vectors la
+        'vectors/la.floret'
+        vectors/floret-la
+        --mode floret
+        --name ${vars.lang}_${vars.md_dep_package_name}.vectors        
+
+  - name: init-labels
+    help: "Initialize labels for components"
+    script:
+      - >-
+        python -m spacy init labels 
+        configs/${vars.config}-md.cfg
+        corpus/labels
+        --gpu-id ${vars.gpu} 
+        --paths.train corpus/train
+        --paths.dev corpus/dev
+        --nlp.lang=${vars.lang}
+        --code scripts/functions.py
+    deps:
+      - "corpus/train"
+      - "corpus/dev"
+      - "corpus/test"
+      - "configs/${vars.config}-md.cfg"
+    outputs:
+      - "corpus/labels/morphologizer.json"
+      - "corpus/labels/parser.json"
+      - "corpus/labels/tagger.json"
+      - "corpus/labels/trainable_lemmatizer.json"                  
+
+  - name: train-sm
+    help: "Train sm tagger/parser/etc. on Latin UD treebanks"
+    script:
+      - >-
+        python -m spacy train 
+        configs/${vars.config}-sm.cfg
+        --output training/sm
+        --gpu-id ${vars.gpu} 
+        --paths.train corpus/train
+        --paths.dev corpus/dev
+        --nlp.lang=${vars.lang}
+        --code scripts/functions.py
+    deps:
+      - "corpus/train/${vars.treebank_pers_data}-train.spacy"
+      - "corpus/train/${vars.treebank_proi_data}-train.spacy"      
+      - "corpus/train/${vars.treebank_ittb_data}-train.spacy"      
+      - "corpus/train/${vars.treebank_llct_data}-train.spacy"
+      - "corpus/train/${vars.treebank_udan_data}-train.spacy"
+      - "corpus/dev/${vars.treebank_proi_data}-dev.spacy"
+      - "corpus/dev/${vars.treebank_ittb_data}-dev.spacy"
+      - "corpus/dev/${vars.treebank_llct_data}-dev.spacy"
+      - "corpus/dev/${vars.treebank_udan_data}-dev.spacy"
+      - "corpus/test/${vars.treebank_pers_data}-test.spacy"
+      - "corpus/test/${vars.treebank_proi_data}-test.spacy"
+      - "corpus/test/${vars.treebank_ittb_data}-test.spacy"
+      - "corpus/test/${vars.treebank_llct_data}-test.spacy"
+      - "corpus/test/${vars.treebank_udan_data}-test.spacy"    
+      - "configs/${vars.config}-sm.cfg"
+    outputs:
+      - "training/sm/model-best"
+
+  - name: train
+    help: "Train md tagger/parser/etc. on Latin UD treebanks"
+    script:
+      - >-
+        python -m spacy train 
+        configs/${vars.config}-md.cfg
+        --output training/md
+        --gpu-id ${vars.gpu} 
+        --paths.train corpus/train
+        --paths.dev corpus/dev
+        --nlp.lang=${vars.lang}
+        --code scripts/functions.py
+    deps:
+      - "corpus/train/${vars.treebank_pers_data}-train.spacy"
+      - "corpus/train/${vars.treebank_proi_data}-train.spacy"      
+      - "corpus/train/${vars.treebank_ittb_data}-train.spacy"      
+      - "corpus/train/${vars.treebank_llct_data}-train.spacy"
+      - "corpus/train/${vars.treebank_udan_data}-train.spacy"
+      - "corpus/dev/${vars.treebank_proi_data}-dev.spacy"
+      - "corpus/dev/${vars.treebank_ittb_data}-dev.spacy"
+      - "corpus/dev/${vars.treebank_llct_data}-dev.spacy"
+      - "corpus/dev/${vars.treebank_udan_data}-dev.spacy"
+      - "corpus/test/${vars.treebank_pers_data}-test.spacy"
+      - "corpus/test/${vars.treebank_proi_data}-test.spacy"
+      - "corpus/test/${vars.treebank_ittb_data}-test.spacy"
+      - "corpus/test/${vars.treebank_llct_data}-test.spacy"
+      - "corpus/test/${vars.treebank_udan_data}-test.spacy"    
+      - "configs/${vars.config}-md.cfg"
+    outputs:
+      - "training/md/model-best"
+
+  - name: evaluate-sm
+    help: "Evaluate sm model on the test data and save the metrics"
+    script:
+      - >-
+        python -m spacy evaluate 
+        ./training/sm/model-best 
+        ./corpus/test/
+        --output ./metrics/${vars.lang}_${vars.sm_dep_package_name}_${vars.dep_package_version}.json 
+        --code scripts/functions.py
+        --gpu-id ${vars.gpu}
+    deps:
+      - "training/sm/model-best"
+      - "corpus/test/"
+    outputs:
+      - "metrics/{vars.sm_dep_package_name}-{vars.dep_package_version}.json"
+
+  - name: evaluate
+    help: "Evaluate md model on the test data and save the metrics"
+    script:
+      - >-
+        python -m spacy evaluate 
+        ./training/md/model-best 
+        ./corpus/test/
+        --output ./metrics/${vars.lang}_${vars.md_dep_package_name}_${vars.dep_package_version}.json 
+        --code scripts/functions.py
+        --gpu-id ${vars.gpu}
+    deps:
+      - "training/md/model-best"
+      - "corpus/test/"
+    outputs:
+      - "metrics/{vars.md_dep_package_name}-{vars.dep_package_version}.json"
+
+  - name: convert-ner
+    help: "Convert the NER data to spaCy's binary format"
+    script:
+      - "mkdir -p corpus/ner"
+      - "python scripts/convert.py ${vars.lang} assets/${vars.ner_train} corpus/ner/ner_train.spacy"
+      - "python scripts/convert.py ${vars.lang} assets/${vars.ner_dev} corpus/ner/ner_dev.spacy"
+    deps:
+      - "assets/${vars.ner_train}"
+      - "assets/${vars.ner_dev}"
+      - "scripts/convert.py"
+    outputs:
+      - "corpus/ner/ner_train.spacy"
+      - "corpus/ner/ner_dev.spacy"
+
+  - name: create-ner-config
+    help: "Create a new config with an NER pipeline component"
+    script:
+      - "python -m spacy init config --lang ${vars.lang} --pipeline ner configs/ner_config.cfg --force"
+    outputs:
+      - "configs/ner_config.cfg"
+
+  - name: train-ner-sm
+    help: "Train the NER model for the sm model"
+    script:
+      - "mkdir -p training/sm/ner"
+      - "python -m spacy train configs/ner_config.cfg --output training/sm/ner --paths.train corpus/ner/ner_train.spacy --paths.dev corpus/ner/ner_dev.spacy --training.eval_frequency 10 --training.patience 50 --gpu-id ${vars.gpu}"
+    deps:
+      - "configs/ner_config.cfg"
+      - "corpus/ner/ner_train.spacy"
+      - "corpus/ner/ner_dev.spacy"
+    outputs:
+      - "training/sm/ner/model-best"
+
+  - name: train-ner-md
+    help: "Train the NER model for the md model"
+    script:
+      - "mkdir -p training/md/ner"
+      - "python -m spacy train configs/ner_config.cfg --output training/md/ner --paths.train corpus/ner/ner_train.spacy --paths.dev corpus/ner/ner_dev.spacy --training.eval_frequency 10 --training.patience 50 --gpu-id ${vars.gpu} --code scripts/functions.py --initialize.vectors training/md/model-best --components.tok2vec.model.embed.include_static_vectors true"
+    deps:
+      - "configs/ner_config.cfg"
+      - "corpus/ner/ner_train.spacy"
+      - "corpus/ner/ner_dev.spacy"
+    outputs:
+      - "training/ner/md/model-best"
+
+  - name: assemble-sm-core
+    help: "Assemble sm core model, i.e. add NER component to dep model"
+    script:
+      - >-
+        python -m spacy assemble
+        configs/config-sm-core.cfg
+        training/sm/model-assembled
+        --code scripts/functions.py
+    deps:
+      - "training/sm/model-best"
+    outputs:
+      - "metrics/{vars.core_package_name}-{vars.core_package_version}.json"
+
+  - name: assemble-md-core
+    help: "Assemble md core model, i.e. add NER component to dep model"
+    script:
+      - >-
+        python -m spacy assemble
+        configs/config-md-core.cfg
+        training/md/model-assembled
+        --code scripts/functions.py
+    deps:
+      - "training/md/model-best"
+    outputs:
+      - "metrics/{vars.core_package_name}-{vars.core_package_version}.json"
+
+  - name: assemble-meta
+    help: "Assemble meta.json files so that all metrics are included"
+    script:
+      - "python scripts/assemble_meta.py --dep_meta training/sm/model-best/meta.json --ner_meta training/sm/ner/model-best/meta.json --assembled_meta training/sm/model-assembled/meta.json"    
+      - "python scripts/assemble_meta.py --dep_meta training/md/model-best/meta.json --ner_meta training/md/ner/model-best/meta.json --assembled_meta training/md/model-assembled/meta.json"
+
+  - name: package-sm-dep
+    help: "Package the trained sm dep model"
+    script:
+      - >-
+        python -m spacy package 
+        training/sm/model-best packages 
+        --name ${vars.sm_dep_package_name} 
+        --version ${vars.dep_package_version}
+        --meta data/meta.json
+        --code scripts/functions.py
+        --force
+    deps:
+      - "training/sm/model-best"
+    outputs_no_cache:
+      - "packages/${vars.lang}_${vars.sm_dep_package_name}-${vars.dep_package_version}/dist/en_${vars.sm_dep_package_name}-${vars.dep_package_version}.tar.gz"
+
+  - name: package-sm-core
+    help: "Package the trained sm core model"
+    script:
+      - >-
+        python -m spacy package 
+        training/sm/model-assembled packages 
+        --name ${vars.sm_core_package_name} 
+        --version ${vars.core_package_version}
+        --meta data/meta.json
+        --code scripts/functions.py
+        --force
+    deps:
+      - "training/sm/model-assembled"
+    outputs_no_cache:
+      - "packages/${vars.lang}_${vars.sm_dep_package_name}-${vars.dep_package_version}/dist/en_${vars.sm_dep_package_name}-${vars.dep_package_version}.tar.gz"            
+
+  - name: package-md-dep
+    help: "Package the trained md dep model"
+    script:
+      - >-
+        python -m spacy package 
+        training/md/model-best packages 
+        --name ${vars.md_dep_package_name} 
+        --version ${vars.dep_package_version}
+        --meta data/meta.json
+        --code scripts/functions.py
+        --force
+    deps:
+      - "training/md/model-best"
+    outputs_no_cache:
+      - "packages/${vars.lang}_${vars.md_dep_package_name}-${vars.dep_package_version}/dist/en_${vars.md_dep_package_name}-${vars.dep_package_version}.tar.gz"
+
+  - name: package-md-core
+    help: "Package the trained md core model"
+    script:
+      - >-
+        python -m spacy package 
+        training/md/model-assembled packages 
+        --name ${vars.md_core_package_name} 
+        --version ${vars.core_package_version}
+        --meta data/meta.json
+        --code scripts/functions.py
+        --force
+    deps:
+      - "training/md/model-assembled"
+    outputs_no_cache:
+      - "packages/${vars.lang}_${vars.md_dep_package_name}-${vars.dep_package_version}/dist/en_${vars.md_dep_package_name}-${vars.dep_package_version}.tar.gz"            
+
+  - name: document
+    help: "Document ${vars.md_core_package_name}"
+    script:
+      - >-
+        python -m spacy project document 
+        --output README.md
+    outputs:
+      - "README.md"
+
+  - name: clean
+    help: "Remove intermediate files"
+    script:
+      - sh -c "rm -rf assets/ner/*"
+      - sh -c "rm -rf assets/original/*"      
+      - sh -c "rm -rf assets/processed/*"
+      - sh -c "rm -rf assets/preprocess/*"
+      - sh -c "rm -rf corpus/*"
+      - sh -c "rm -rf metrics/*"
+      - sh -c "rm -rf training/*"
+      - sh -c "rm -rf vectors/*"
