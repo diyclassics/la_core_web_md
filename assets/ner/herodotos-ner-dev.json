@@ -1,0 +1,1687 @@
+[
+  {
+    "text": "qui Caesaris adventu cognito profugit ex oppido cohortesque secum abducere conatus magna parte militum deseritur.",
+    "spans": [
+      {
+        "start": 4,
+        "end": 12,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "quibus rebus cognitis confisus municipiorum voluntatibus Caesar cohortes legionis xiii ex praesidiis deducit Auximumque proficiscitur;",
+    "spans": [
+      {
+        "start": 57,
+        "end": 63,
+        "label": "PERSON"
+      },
+      {
+        "start": 109,
+        "end": 119,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "reliqui ad Caesarem perveniunt, atque una cum iis deprensus L. Pupius, primi pili centurio, adducitur, qui hunc eundem ordinem in exercitu Cn. Pompei antea duxerat.",
+    "spans": [
+      {
+        "start": 11,
+        "end": 19,
+        "label": "PERSON"
+      },
+      {
+        "start": 60,
+        "end": 69,
+        "label": "PERSON"
+      },
+      {
+        "start": 139,
+        "end": 149,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Tubero cum in Africam venisset, invenit in provincia cum imperio Attium Varum;",
+    "spans": [
+      {
+        "start": 0,
+        "end": 6,
+        "label": "PERSON"
+      },
+      {
+        "start": 14,
+        "end": 21,
+        "label": "LOC"
+      },
+      {
+        "start": 65,
+        "end": 77,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "commisso proelio deseritur a suis Varus;",
+    "spans": [
+      {
+        "start": 34,
+        "end": 39,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "eundem, cum Siciliam recepisset, protinus in Africam traducere exercitum iubet.",
+    "spans": [
+      {
+        "start": 12,
+        "end": 20,
+        "label": "LOC"
+      },
+      {
+        "start": 45,
+        "end": 52,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "dicuntur etiam ab nonnullis sententiae, ut legati ad Caesarem mittantur, qui voluntatem senatus ei proponant.",
+    "spans": [
+      {
+        "start": 53,
+        "end": 61,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "itaque omnes uno consilio Domitium productum in publicum circumsistunt et custodiunt, legatosque ex suo numero ad Caesarem mittunt: sese paratos esse portas aperire, quaeque imperaverit facere, et L. Domitium vivum in eius potestatem tradere.",
+    "spans": [
+      {
+        "start": 26,
+        "end": 34,
+        "label": "PERSON"
+      },
+      {
+        "start": 114,
+        "end": 122,
+        "label": "PERSON"
+      },
+      {
+        "start": 197,
+        "end": 208,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Caesar, ubi luxit, omnes senatores senatorumque liberos, tribunos militum equitesque Romanos ad se produci iubet.",
+    "spans": [
+      {
+        "start": 0,
+        "end": 6,
+        "label": "PERSON"
+      },
+      {
+        "start": 85,
+        "end": 92,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "cuius oratione confirmatus Lentulus, ut in oppidum reverti liceat, petit: quod de sua salute inpetraverit, fore etiam reliquis ad suam spem solacio;",
+    "spans": [
+      {
+        "start": 27,
+        "end": 35,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "facta potestate ex oppido mittitur, neque ab eo prius Domitiani milites discedunt, quam in conspectum Caesaris deducatur.",
+    "spans": [
+      {
+        "start": 54,
+        "end": 63,
+        "label": "PERSON"
+      },
+      {
+        "start": 102,
+        "end": 110,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "illi deliberata re respondent scriptaque ad eum mandata per eosdem remittunt, quorum haec erat summa: Caesar in Galliam reverteretur, Arimino excederet, exercitus dimitteret;",
+    "spans": [
+      {
+        "start": 102,
+        "end": 108,
+        "label": "PERSON"
+      },
+      {
+        "start": 112,
+        "end": 119,
+        "label": "LOC"
+      },
+      {
+        "start": 134,
+        "end": 141,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "sin Caesarem respiciant atque eius gratiam sequantur, ut superioribus fecerint temporibus, se sibi consilium capturum neque senatus auctoritati obtemperaturum;",
+    "spans": [
+      {
+        "start": 4,
+        "end": 12,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "interea veterem exercitum, duas Hispanias confirmari, quarum erat altera maximis beneficiis Pompei devincta, auxilia, equitatum parari, Galliam Italiamque temptari se absente nolebat.",
+    "spans": [
+      {
+        "start": 32,
+        "end": 41,
+        "label": "LOC"
+      },
+      {
+        "start": 92,
+        "end": 98,
+        "label": "PERSON"
+      },
+      {
+        "start": 136,
+        "end": 143,
+        "label": "LOC"
+      },
+      {
+        "start": 144,
+        "end": 154,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "Curio summa omnium voluntate Iguium recipit.",
+    "spans": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "PERSON"
+      },
+      {
+        "start": 29,
+        "end": 35,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "Antonius cum cohortibus et Attio eodem die quo profectus erat revertitur.",
+    "spans": [
+      {
+        "start": 0,
+        "end": 8,
+        "label": "PERSON"
+      },
+      {
+        "start": 27,
+        "end": 32,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "HS lx, quod advexerat Domitius atque in publico deposuerat, allatum ad se ab quattuorviris Corfiniensibus Domitio reddit, ne continentior in vita hominum quam in pecunia fuisse videatur, etsi eam pecuniam publicam esse constabat datamque a Pompeio in stipendium.",
+    "spans": [
+      {
+        "start": 22,
+        "end": 30,
+        "label": "PERSON"
+      },
+      {
+        "start": 91,
+        "end": 105,
+        "label": "NORP"
+      },
+      {
+        "start": 106,
+        "end": 113,
+        "label": "PERSON"
+      },
+      {
+        "start": 240,
+        "end": 247,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "simul infamia duarum legionum permotus, quas ab itinere Asiae Syriaeque ad suam potentiam dominatumque converterat, rem ad arma deduci studebat.",
+    "spans": [
+      {
+        "start": 56,
+        "end": 61,
+        "label": "LOC"
+      },
+      {
+        "start": 62,
+        "end": 71,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "quos postea monitus ab suis, quod ea res omnium iudicio reprehendebatur, circum familias conventus Campaniae custodiae causa distribuit.",
+    "spans": [
+      {
+        "start": 99,
+        "end": 108,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "Quibus rebus Romam nuntiatis tantus repente terror invasit, ut cum Lentulus consul ad aperiendum aerarium venisset ad pecuniamque Pompeio ex senatus consulto proferendam, protinus aperto sanctiore aerario ex urbe profugeret.",
+    "spans": [
+      {
+        "start": 13,
+        "end": 18,
+        "label": "LOC"
+      },
+      {
+        "start": 67,
+        "end": 75,
+        "label": "PERSON"
+      },
+      {
+        "start": 130,
+        "end": 137,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "interea legio xii Caesarem consequitur.",
+    "spans": [
+      {
+        "start": 18,
+        "end": 26,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "polliceri se in provinciam iturum neque, ante quem diem iturus sit, definire, ut, si peracto consulatu Caesaris non profectus esset, nulla tamen mendaci religione obstrictus videretur;",
+    "spans": [
+      {
+        "start": 103,
+        "end": 111,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "postulata Caesaris renuntiat.",
+    "spans": [
+      {
+        "start": 10,
+        "end": 18,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "exercitum Caesaris velle dimitti, dilectus habere;",
+    "spans": [
+      {
+        "start": 10,
+        "end": 18,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "erant quinque senatorii ordinis, L. Domitius, P. Lentulus Spinther, L. Caecilius Rufus, Sex. Quintilius Varus quaestor, L. Rubrius;",
+    "spans": [
+      {
+        "start": 33,
+        "end": 44,
+        "label": "PERSON"
+      },
+      {
+        "start": 46,
+        "end": 66,
+        "label": "PERSON"
+      },
+      {
+        "start": 68,
+        "end": 86,
+        "label": "PERSON"
+      },
+      {
+        "start": 88,
+        "end": 109,
+        "label": "PERSON"
+      },
+      {
+        "start": 120,
+        "end": 130,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "eo cum venisset, cohortes v praemissae a Domitio ex oppido pontem fluminis interrumpebant, qui erat ab oppido milia passuum circiter iii. ibi cum antecursoribus Caesaris proelio commisso celeriter Domitiani a ponte repulsi se in oppidum receperunt.",
+    "spans": [
+      {
+        "start": 41,
+        "end": 48,
+        "label": "PERSON"
+      },
+      {
+        "start": 161,
+        "end": 169,
+        "label": "PERSON"
+      },
+      {
+        "start": 197,
+        "end": 206,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Quarta vigilia circiter Lentulus Spinther de muro cum vigiliis custodibusque nostris colloquitur: velle, si sibi fiat potestas, Caesarem convenire.",
+    "spans": [
+      {
+        "start": 24,
+        "end": 41,
+        "label": "PERSON"
+      },
+      {
+        "start": 128,
+        "end": 136,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "ut M. Rufus, qui sententiam Calidi paucis fere mutatis verbis sequebatur.",
+    "spans": [
+      {
+        "start": 3,
+        "end": 11,
+        "label": "PERSON"
+      },
+      {
+        "start": 28,
+        "end": 34,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "nec docendi Caesaris propinquis eius spatium datur, nec tribunis plebis sui periculi deprecandi neque etiam extremi iuris intercessione retinendi, quod L. Sulla reliquerat, facultas tribuitur, sed de sua salute septimo die cogitare coguntur, quod illi turbulentissimi superioribus temporibus tribuni plebis post octo denique menses variarum actionum respicere ac timere consuerant.",
+    "spans": [
+      {
+        "start": 12,
+        "end": 20,
+        "label": "PERSON"
+      },
+      {
+        "start": 152,
+        "end": 160,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "dicuntur etiam ab nonnullis sententiae, ut legati ad Caesarem mittantur, qui voluntatem senatus ei proponant.",
+    "spans": [
+      {
+        "start": 53,
+        "end": 61,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "L. Manlius praetor Alba cum cohortibus sex profugit, Rutilius Lupus praetor Tarracina cum tribus;",
+    "spans": [
+      {
+        "start": 0,
+        "end": 10,
+        "label": "PERSON"
+      },
+      {
+        "start": 19,
+        "end": 23,
+        "label": "LOC"
+      },
+      {
+        "start": 53,
+        "end": 67,
+        "label": "PERSON"
+      },
+      {
+        "start": 76,
+        "end": 85,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "ac tametsi magnopere admirabatur Magium, quem ad Pompeium cum mandatis miserat, ad se non remitti, atque ea res saepe temptata etsi impetus eius consiliaque tardabat, tamen omnibus rebus in eo perseverandum putabat.",
+    "spans": [
+      {
+        "start": 33,
+        "end": 39,
+        "label": "PERSON"
+      },
+      {
+        "start": 49,
+        "end": 57,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Curio summa omnium voluntate Iguium recipit.",
+    "spans": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "PERSON"
+      },
+      {
+        "start": 29,
+        "end": 35,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "C. Iuli Caesaris Commentariorum De Bello Civili, Liber Primus Litteris a Fabio C. Caesaris consulibus redditis aegre ab his impetratum est summa tribunorum plebis contentione ut in senatu recitarentur;",
+    "spans": [
+      {
+        "start": 0,
+        "end": 16,
+        "label": "PERSON"
+      },
+      {
+        "start": 73,
+        "end": 78,
+        "label": "PERSON"
+      },
+      {
+        "start": 79,
+        "end": 90,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "C. Iuli Caesaris Commentariorum De Bello Civili, Liber Primus Litteris a Fabio C. Caesaris consulibus redditis aegre ab his impetratum est summa tribunorum plebis contentione ut in senatu recitarentur;",
+    "spans": [
+      {
+        "start": 0,
+        "end": 16,
+        "label": "PERSON"
+      },
+      {
+        "start": 73,
+        "end": 78,
+        "label": "PERSON"
+      },
+      {
+        "start": 79,
+        "end": 90,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Adventu Caesaris cognito decuriones Auximi ad Attium Varum frequentes conveniunt;",
+    "spans": [
+      {
+        "start": 8,
+        "end": 16,
+        "label": "PERSON"
+      },
+      {
+        "start": 36,
+        "end": 42,
+        "label": "LOC"
+      },
+      {
+        "start": 46,
+        "end": 58,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "ut M. Rufus, qui sententiam Calidi paucis fere mutatis verbis sequebatur.",
+    "spans": [
+      {
+        "start": 3,
+        "end": 11,
+        "label": "PERSON"
+      },
+      {
+        "start": 28,
+        "end": 34,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "relinquebatur, ut ex longinquioribus regionibus Galliae Picenique et a freto naves essent exspectandae.",
+    "spans": [
+      {
+        "start": 48,
+        "end": 55,
+        "label": "LOC"
+      },
+      {
+        "start": 56,
+        "end": 65,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "Misso ad vesperum senatu omnes, qui sunt eius ordinis, a Pompeio evocantur.",
+    "spans": [
+      {
+        "start": 57,
+        "end": 64,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Omnibus his resistitur omnibusque oratio consulis, Scipionis, Catonis opponitur.",
+    "spans": [
+      {
+        "start": 51,
+        "end": 60,
+        "label": "PERSON"
+      },
+      {
+        "start": 62,
+        "end": 69,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Quae res etsi nihil ad levandas iniurias pertinere videbantur, tamen idoneos nactus homines, per quos ea quae vellet ad eum perferrentur, petit ab utroque, quoniam Pompei mandata ad se detulerint, ne graventur sua quoque ad eum postulata deferre, si parvo labore magnas controversias tollere atque omnem Italiam metu liberare possint.",
+    "spans": [
+      {
+        "start": 164,
+        "end": 170,
+        "label": "PERSON"
+      },
+      {
+        "start": 304,
+        "end": 311,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "Lentulus aeris alieni magnitudine et spe exercitus ac provinciarum et regum appellandorum largitionibus movetur, seque alterum fore Sullam inter suos gloriatur, ad quem summa imperii redeat.",
+    "spans": [
+      {
+        "start": 0,
+        "end": 8,
+        "label": "PERSON"
+      },
+      {
+        "start": 132,
+        "end": 138,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Quibus rebus Romam nuntiatis tantus repente terror invasit, ut cum Lentulus consul ad aperiendum aerarium venisset ad pecuniamque Pompeio ex senatus consulto proferendam, protinus aperto sanctiore aerario ex urbe profugeret.",
+    "spans": [
+      {
+        "start": 13,
+        "end": 18,
+        "label": "LOC"
+      },
+      {
+        "start": 67,
+        "end": 75,
+        "label": "PERSON"
+      },
+      {
+        "start": 130,
+        "end": 137,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "intercedit M. Antonius Q. Cassius tribuni plebis.",
+    "spans": [
+      {
+        "start": 11,
+        "end": 22,
+        "label": "PERSON"
+      },
+      {
+        "start": 23,
+        "end": 33,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Antonius cum cohortibus et Attio eodem die quo profectus erat revertitur.",
+    "spans": [
+      {
+        "start": 0,
+        "end": 8,
+        "label": "PERSON"
+      },
+      {
+        "start": 27,
+        "end": 32,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Pompeius his rebus cognitis, quae erant ad Corfinium gestae, Luceria proficiscitur Canusium atque inde Brundisium.",
+    "spans": [
+      {
+        "start": 0,
+        "end": 8,
+        "label": "PERSON"
+      },
+      {
+        "start": 43,
+        "end": 52,
+        "label": "LOC"
+      },
+      {
+        "start": 61,
+        "end": 68,
+        "label": "LOC"
+      },
+      {
+        "start": 83,
+        "end": 91,
+        "label": "LOC"
+      },
+      {
+        "start": 103,
+        "end": 113,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "itaque omnes uno consilio Domitium productum in publicum circumsistunt et custodiunt, legatosque ex suo numero ad Caesarem mittunt: sese paratos esse portas aperire, quaeque imperaverit facere, et L. Domitium vivum in eius potestatem tradere.",
+    "spans": [
+      {
+        "start": 26,
+        "end": 34,
+        "label": "PERSON"
+      },
+      {
+        "start": 114,
+        "end": 122,
+        "label": "PERSON"
+      },
+      {
+        "start": 197,
+        "end": 208,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "in his Camerino fugientem Lucilium Hirrum cum sex cohortibus, quas ibi in praesidio habuerat, excipit;",
+    "spans": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "LOC"
+      },
+      {
+        "start": 26,
+        "end": 41,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Itaque in praesentia Pompei sequendi rationem omittit, in Hispaniam proficisci constituit, duumviris municipiorum omnium imperat, ut naves conquirant Brundisiumque deducendas curent.",
+    "spans": [
+      {
+        "start": 21,
+        "end": 27,
+        "label": "PERSON"
+      },
+      {
+        "start": 58,
+        "end": 67,
+        "label": "LOC"
+      },
+      {
+        "start": 150,
+        "end": 163,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "mittit eo M. Antonium cum legionis xiii cohortibus v. Sulmonenses simulatque signa nostra viderunt, portas aperuerunt universique, et oppidani et milites, obviam gratulantes Antonio exierunt.",
+    "spans": [
+      {
+        "start": 10,
+        "end": 21,
+        "label": "PERSON"
+      },
+      {
+        "start": 174,
+        "end": 181,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Prope dimidia parte operis a Caesare effecta diebusque in ea re consumptis ix, naves a consulibus Dyrrachio remissae, quae priorem partem exercitus eo de portaverant, Brundisium revertuntur.",
+    "spans": [
+      {
+        "start": 29,
+        "end": 36,
+        "label": "PERSON"
+      },
+      {
+        "start": 98,
+        "end": 107,
+        "label": "LOC"
+      },
+      {
+        "start": 167,
+        "end": 177,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "L. Lentulus consul senatu rei publicae se non defuturum pollicetur, si audacter ac fortiter sententias dicere velint;",
+    "spans": [
+      {
+        "start": 0,
+        "end": 11,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "tota Italia dilectus haberi, retineri legiones ii, quae ab se simulatione Parthici belli sint abductae, civitatem esse in armis.",
+    "spans": [
+      {
+        "start": 5,
+        "end": 11,
+        "label": "LOC"
+      },
+      {
+        "start": 74,
+        "end": 82,
+        "label": "NORP"
+      }
+    ]
+  },
+  {
+    "text": "ac tametsi magnopere admirabatur Magium, quem ad Pompeium cum mandatis miserat, ad se non remitti, atque ea res saepe temptata etsi impetus eius consiliaque tardabat, tamen omnibus rebus in eo perseverandum putabat.",
+    "spans": [
+      {
+        "start": 33,
+        "end": 39,
+        "label": "PERSON"
+      },
+      {
+        "start": 49,
+        "end": 57,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "quibus rebus cognitis confisus municipiorum voluntatibus Caesar cohortes legionis xiii ex praesidiis deducit Auximumque proficiscitur;",
+    "spans": [
+      {
+        "start": 57,
+        "end": 63,
+        "label": "PERSON"
+      },
+      {
+        "start": 109,
+        "end": 119,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "sic vocibus consulis, terrore praesentis exercitus, minis amicorum Pompei plerique compulsi inviti et coacti Scipionis sententiam sequuntur: uti ante certam diem Caesar exercitum dimittat;",
+    "spans": [
+      {
+        "start": 67,
+        "end": 73,
+        "label": "PERSON"
+      },
+      {
+        "start": 109,
+        "end": 118,
+        "label": "PERSON"
+      },
+      {
+        "start": 162,
+        "end": 168,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Caralitani, simul ad se Valerium mitti audierunt, nondum profecto ex Italia sua sponte Cottam ex oppido eiciunt.",
+    "spans": [
+      {
+        "start": 0,
+        "end": 10,
+        "label": "NORP"
+      },
+      {
+        "start": 24,
+        "end": 32,
+        "label": "PERSON"
+      },
+      {
+        "start": 69,
+        "end": 75,
+        "label": "LOC"
+      },
+      {
+        "start": 87,
+        "end": 93,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Misso ad vesperum senatu omnes, qui sunt eius ordinis, a Pompeio evocantur.",
+    "spans": [
+      {
+        "start": 57,
+        "end": 64,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "habere se quoque ad Caesaris gratiam atque amicitiam receptum.",
+    "spans": [
+      {
+        "start": 20,
+        "end": 28,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "eo cum venisset, cohortes v praemissae a Domitio ex oppido pontem fluminis interrumpebant, qui erat ab oppido milia passuum circiter iii. ibi cum antecursoribus Caesaris proelio commisso celeriter Domitiani a ponte repulsi se in oppidum receperunt.",
+    "spans": [
+      {
+        "start": 41,
+        "end": 48,
+        "label": "PERSON"
+      },
+      {
+        "start": 161,
+        "end": 169,
+        "label": "PERSON"
+      },
+      {
+        "start": 197,
+        "end": 206,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "item reliquis itineribus nonnullae cohortes in agmen Caesaris, aliae in equites incidunt.",
+    "spans": [
+      {
+        "start": 53,
+        "end": 61,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Cn. Pompeius pridie eius diei ex urbe profectus iter ad legiones habebat, quas a Caesare acceptas in Apulia hibernorum causa disposuerat.",
+    "spans": [
+      {
+        "start": 0,
+        "end": 12,
+        "label": "PERSON"
+      },
+      {
+        "start": 81,
+        "end": 88,
+        "label": "PERSON"
+      },
+      {
+        "start": 101,
+        "end": 107,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "Pompeius enim rescripserat sese rem in summum periculum deducturum non esse, neque suo consilio aut voluntate Domitium se in oppidum Corfinium contulisse: proinde, siqua fuisset facultas, ad se cum omnibus copiis veniret.",
+    "spans": [
+      {
+        "start": 0,
+        "end": 8,
+        "label": "PERSON"
+      },
+      {
+        "start": 110,
+        "end": 118,
+        "label": "PERSON"
+      },
+      {
+        "start": 133,
+        "end": 142,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "eo triduo legio viii ad eum venit cohortesque ex novis Galliae dilectibus xxii equitesque ab rege Norico circiter ccc. quorum adventu altera castra ad alteram oppidi partem ponit;",
+    "spans": [
+      {
+        "start": 55,
+        "end": 62,
+        "label": "LOC"
+      },
+      {
+        "start": 98,
+        "end": 104,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "Itaque in praesentia Pompei sequendi rationem omittit, in Hispaniam proficisci constituit, duumviris municipiorum omnium imperat, ut naves conquirant Brundisiumque deducendas curent.",
+    "spans": [
+      {
+        "start": 21,
+        "end": 27,
+        "label": "PERSON"
+      },
+      {
+        "start": 58,
+        "end": 67,
+        "label": "LOC"
+      },
+      {
+        "start": 150,
+        "end": 163,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "Caesar primis diebus castra magnis operibus munire et ex finitimis municipiis frumentum comportare reliquasque copias exspectare instituit.",
+    "spans": [
+      {
+        "start": 0,
+        "end": 6,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Erat iniqua condicio postulare, ut Caesar Arimino excederet atque in provinciam reverteretur, ipsum et provincias et legiones alienas tenere;",
+    "spans": [
+      {
+        "start": 35,
+        "end": 41,
+        "label": "PERSON"
+      },
+      {
+        "start": 42,
+        "end": 49,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "id oppidum Lentulus Spinther x cohortibus tenebat;",
+    "spans": [
+      {
+        "start": 11,
+        "end": 28,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Pompeium, qui amissa restituisse videatur bona, etiam, quae ante habuerint, ademisse.",
+    "spans": [
+      {
+        "start": 0,
+        "end": 8,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "dixerat aliquis leniorem sententiam, ut primo M. Marcellus, ingressus in eam orationem, non oportere ante de ea re ad senatum referri, quam dilectus tota Italia habiti et exercitus conscripti essent, quo praesidio tuto et libere senatus quae vellet decernere auderet;",
+    "spans": [
+      {
+        "start": 46,
+        "end": 58,
+        "label": "PERSON"
+      },
+      {
+        "start": 154,
+        "end": 160,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "L. Lentulus consul senatu rei publicae se non defuturum pollicetur, si audacter ac fortiter sententias dicere velint;",
+    "spans": [
+      {
+        "start": 0,
+        "end": 11,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Libo a colloquio Canini digressus ad Pompeium proficiscitur.",
+    "spans": [
+      {
+        "start": 0,
+        "end": 4,
+        "label": "PERSON"
+      },
+      {
+        "start": 17,
+        "end": 23,
+        "label": "PERSON"
+      },
+      {
+        "start": 37,
+        "end": 45,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Litteris perlectis Domitius dissimulans in consilio pronuntiat Pompeium celeriter subsidio venturum hortaturque eos ne animo deficiant, quaeque usui ad defendendum oppidum sint parent.",
+    "spans": [
+      {
+        "start": 19,
+        "end": 27,
+        "label": "PERSON"
+      },
+      {
+        "start": 63,
+        "end": 71,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "ut quisque acerbissime crudelissimeque dixit, ita quam maxime ab inimicis Caesaris collaudatur.",
+    "spans": [
+      {
+        "start": 74,
+        "end": 82,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "is reliquo sermone confecto, cuius rei causa venerat, habere se a Pompeio ad eum privati officii mandata demonstrat: velle Pompeium se Caesari purgatum, ne ea, quae rei publicae causa egerit, in suam contumeliam vertat.",
+    "spans": [
+      {
+        "start": 66,
+        "end": 73,
+        "label": "PERSON"
+      },
+      {
+        "start": 123,
+        "end": 131,
+        "label": "PERSON"
+      },
+      {
+        "start": 135,
+        "end": 142,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Lentulus sententiam Calidi pronuntiaturum se omnino negavit, Marcellus perterritus conviciis a sua sententia discessit.",
+    "spans": [
+      {
+        "start": 0,
+        "end": 8,
+        "label": "PERSON"
+      },
+      {
+        "start": 20,
+        "end": 26,
+        "label": "PERSON"
+      },
+      {
+        "start": 61,
+        "end": 70,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "tota Italia dilectus haberi, retineri legiones ii, quae ab se simulatione Parthici belli sint abductae, civitatem esse in armis.",
+    "spans": [
+      {
+        "start": 5,
+        "end": 11,
+        "label": "LOC"
+      },
+      {
+        "start": 74,
+        "end": 82,
+        "label": "NORP"
+      }
+    ]
+  },
+  {
+    "text": "Scipionem eadem spes provinciae atque exercituum impellit, quos se pro necessitudine partiturum cum Pompeio arbitratur, simul iudiciorum metus atque ostentatio sui et adulatio potentium, qui in re publica iudiciisque tum plurimum pollebant.",
+    "spans": [
+      {
+        "start": 0,
+        "end": 9,
+        "label": "PERSON"
+      },
+      {
+        "start": 100,
+        "end": 107,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "hunc ex primo ordine pauci Caesaris consecuti milites consistere coegerunt.",
+    "spans": [
+      {
+        "start": 27,
+        "end": 35,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "repperit consules Dyrrachium profectos cum magna parte exercitus, Pompeium remanere Brundisii cum cohortibus xx;",
+    "spans": [
+      {
+        "start": 18,
+        "end": 28,
+        "label": "LOC"
+      },
+      {
+        "start": 66,
+        "end": 74,
+        "label": "PERSON"
+      },
+      {
+        "start": 84,
+        "end": 93,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "Litteris perlectis Domitius dissimulans in consilio pronuntiat Pompeium celeriter subsidio venturum hortaturque eos ne animo deficiant, quaeque usui ad defendendum oppidum sint parent.",
+    "spans": [
+      {
+        "start": 19,
+        "end": 27,
+        "label": "PERSON"
+      },
+      {
+        "start": 63,
+        "end": 71,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Cognita militum voluntate Ariminum cum ea legione proficiscitur, ibique tribunos plebis, qui ad eum confugerant, convenit.",
+    "spans": [
+      {
+        "start": 26,
+        "end": 34,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "profugiunt statim ex urbe tribuni plebis seseque ad Caesarem conferunt.",
+    "spans": [
+      {
+        "start": 52,
+        "end": 60,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "de reliquis rebus ad senatum refertur: tota Italia dilectus habeatur;",
+    "spans": [
+      {
+        "start": 44,
+        "end": 50,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "Africam sorte Tubero obtinere debebat.",
+    "spans": [
+      {
+        "start": 0,
+        "end": 7,
+        "label": "LOC"
+      },
+      {
+        "start": 14,
+        "end": 20,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Pisaurum, Fanum, Anconam singulis cohortibus occupat.",
+    "spans": [
+      {
+        "start": 0,
+        "end": 8,
+        "label": "LOC"
+      },
+      {
+        "start": 10,
+        "end": 15,
+        "label": "LOC"
+      },
+      {
+        "start": 17,
+        "end": 24,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "Curio summa omnium voluntate Iguium recipit.",
+    "spans": [
+      {
+        "start": 0,
+        "end": 5,
+        "label": "PERSON"
+      },
+      {
+        "start": 29,
+        "end": 35,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "ita saepius rem frustra temptatam Caesar aliquando dimittendam sibi iudicat et de bello agendum.",
+    "spans": [
+      {
+        "start": 34,
+        "end": 40,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "quos postea monitus ab suis, quod ea res omnium iudicio reprehendebatur, circum familias conventus Campaniae custodiae causa distribuit.",
+    "spans": [
+      {
+        "start": 99,
+        "end": 108,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "Caesar, ubi luxit, omnes senatores senatorumque liberos, tribunos militum equitesque Romanos ad se produci iubet.",
+    "spans": [
+      {
+        "start": 0,
+        "end": 6,
+        "label": "PERSON"
+      },
+      {
+        "start": 85,
+        "end": 92,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "Domitius per se circiter xx cohortes Alba, ex Marsis et Paelignis, finitimis ab regionibus coegerat.",
+    "spans": [
+      {
+        "start": 0,
+        "end": 8,
+        "label": "PERSON"
+      },
+      {
+        "start": 37,
+        "end": 41,
+        "label": "LOC"
+      },
+      {
+        "start": 46,
+        "end": 52,
+        "label": "NORP"
+      },
+      {
+        "start": 56,
+        "end": 65,
+        "label": "NORP"
+      }
+    ]
+  },
+  {
+    "text": "ita saepius rem frustra temptatam Caesar aliquando dimittendam sibi iudicat et de bello agendum.",
+    "spans": [
+      {
+        "start": 34,
+        "end": 40,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Caesar eas cohortes cum exercitu suo coniunxit Attiumque incolumem dimisit.",
+    "spans": [
+      {
+        "start": 0,
+        "end": 6,
+        "label": "PERSON"
+      },
+      {
+        "start": 47,
+        "end": 56,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Prope dimidia parte operis a Caesare effecta diebusque in ea re consumptis ix, naves a consulibus Dyrrachio remissae, quae priorem partem exercitus eo de portaverant, Brundisium revertuntur.",
+    "spans": [
+      {
+        "start": 29,
+        "end": 36,
+        "label": "PERSON"
+      },
+      {
+        "start": 98,
+        "end": 107,
+        "label": "LOC"
+      },
+      {
+        "start": 167,
+        "end": 177,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "Cognita militum voluntate Ariminum cum ea legione proficiscitur, ibique tribunos plebis, qui ad eum confugerant, convenit.",
+    "spans": [
+      {
+        "start": 26,
+        "end": 34,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "eo L. Caesar adulescens venit, cuius pater Caesaris erat legatus.",
+    "spans": [
+      {
+        "start": 3,
+        "end": 12,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "HS lx, quod advexerat Domitius atque in publico deposuerat, allatum ad se ab quattuorviris Corfiniensibus Domitio reddit, ne continentior in vita hominum quam in pecunia fuisse videatur, etsi eam pecuniam publicam esse constabat datamque a Pompeio in stipendium.",
+    "spans": [
+      {
+        "start": 22,
+        "end": 30,
+        "label": "PERSON"
+      },
+      {
+        "start": 91,
+        "end": 105,
+        "label": "NORP"
+      },
+      {
+        "start": 106,
+        "end": 113,
+        "label": "PERSON"
+      },
+      {
+        "start": 240,
+        "end": 247,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "His datis mandatis Brundisium cum legionibus vi pervenit, veteranis iii et reliquis quas ex novo dilectu confecerat atque in itinere conpleverat;",
+    "spans": [
+      {
+        "start": 19,
+        "end": 29,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "Brundisini Pompeianorum militum iniuriis atque ipsius Pompei contumeliis permoti Caesaris rebus favebant.",
+    "spans": [
+      {
+        "start": 0,
+        "end": 10,
+        "label": "NORP"
+      },
+      {
+        "start": 11,
+        "end": 23,
+        "label": "NORP"
+      },
+      {
+        "start": 54,
+        "end": 60,
+        "label": "PERSON"
+      },
+      {
+        "start": 81,
+        "end": 89,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "reducitur ad eum deprensus ex itinere N. Magius Cremona, praefectus fabrum Cn. Pompei.",
+    "spans": [
+      {
+        "start": 38,
+        "end": 47,
+        "label": "PERSON"
+      },
+      {
+        "start": 48,
+        "end": 55,
+        "label": "LOC"
+      },
+      {
+        "start": 75,
+        "end": 85,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Caesar primis diebus castra magnis operibus munire et ex finitimis municipiis frumentum comportare reliquasque copias exspectare instituit.",
+    "spans": [
+      {
+        "start": 0,
+        "end": 6,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "timere Caesarem ereptis ab eo duabus legionibus, ne ad eius periculum reservare et retinere eas ad urbem Pompeius videretur;",
+    "spans": [
+      {
+        "start": 7,
+        "end": 15,
+        "label": "PERSON"
+      },
+      {
+        "start": 105,
+        "end": 113,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "atque haec superioris aetatis exempla expiata Saturnini atque Gracchorum casibus docet.",
+    "spans": [
+      {
+        "start": 46,
+        "end": 55,
+        "label": "PERSON"
+      },
+      {
+        "start": 62,
+        "end": 72,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "Quae res etsi nihil ad levandas iniurias pertinere videbantur, tamen idoneos nactus homines, per quos ea quae vellet ad eum perferrentur, petit ab utroque, quoniam Pompei mandata ad se detulerint, ne graventur sua quoque ad eum postulata deferre, si parvo labore magnas controversias tollere atque omnem Italiam metu liberare possint.",
+    "spans": [
+      {
+        "start": 164,
+        "end": 170,
+        "label": "PERSON"
+      },
+      {
+        "start": 304,
+        "end": 311,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "per quos re cognita Caesar scalas parari militesque armari iubet, nequam rei gerendae facultatem dimittat.",
+    "spans": [
+      {
+        "start": 20,
+        "end": 26,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "hunc ex primo ordine pauci Caesaris consecuti milites consistere coegerunt.",
+    "spans": [
+      {
+        "start": 27,
+        "end": 35,
+        "label": "PERSON"
+      }
+    ]
+  },
+  {
+    "text": "doluisse se, quod populi Romani beneficium sibi per contumeliam ab inimicis extorqueretur ereptoque semenstri imperio in urbem retraheretur, cuius absentis rationem haberi proximis comitiis populus iussisset.",
+    "spans": [
+      {
+        "start": 25,
+        "end": 31,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "tota Italia dilectus habentur, arma imperantur, pecuniae a municipiis exiguntur, e fanis tolluntur, omnia divina humanaque iura permiscentur.",
+    "spans": [
+      {
+        "start": 5,
+        "end": 11,
+        "label": "LOC"
+      }
+    ]
+  },
+  {
+    "text": "Auximo Caesar progressus omnem agrum Picenum percurrit.",
+    "spans": [
+      {
+        "start": 0,
+        "end": 6,
+        "label": "LOC"
+      },
+      {
+        "start": 7,
+        "end": 13,
+        "label": "PERSON"
+      },
+      {
+        "start": 37,
+        "end": 44,
+        "label": "LOC"
+      }
+    ]
+  }
+]

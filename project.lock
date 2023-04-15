@@ -190,7 +190,7 @@ train-floret-vectors:
       md5: 5d3042317e5d029ee0a588a46ae40b75
   outs:
     - path: vectors/la.floret
-      md5: 3f8c29bb18f2b20dad6ffe63e05f053e
+      md5: a80b3f3ec2bfc5ad67de4073143e8f7a
   spacy_version: 3.5.1
   spacy_git_version: 8153bd573
 train-fasttext-vectors:
@@ -221,7 +221,7 @@ load-vectors:
   cmd: python -m spacy run load-vectors
   script:
     - "python -m spacy init vectors la 'vectors/la.floret' vectors/floret-la --mode\
-      \ floret --name la_dep_cltk_md.vectors        "
+      \ floret --name la_core_cltk_md.vectors        "
   deps: []
   outs: []
   spacy_version: 3.5.1
@@ -271,14 +271,14 @@ evaluate:
   cmd: python -m spacy run evaluate
   script:
     - python -m spacy evaluate  ./training/md/model-best  ./corpus/test/ --output
-      ./metrics/la_dep_cltk_md_0.4.0.json  --code scripts/functions.py --gpu-id -1
+      ./metrics/la_core_cltk_md_0.4.1.json  --code scripts/functions.py --gpu-id -1
   deps:
     - path: training/md/model-best
       md5: aead35dfed911fecf606621c3b6c70f1
     - path: corpus/test/
       md5: cd66d444f39540bbd0c99cbec1bb7e50
   outs:
-    - path: metrics/{vars.md_dep_package_name}-{vars.dep_package_version}.json
+    - path: metrics/{vars.md_core_package_name}-{vars.core_package_version}.json
       md5: null
   spacy_version: 3.5.1
   spacy_git_version: 8153bd573
@@ -302,7 +302,7 @@ document:
   deps: []
   outs:
     - path: README.md
-      md5: 644b08febf32c8d07276b650ec0a5099
+      md5: a53b1c3f38c7b22b6782e75941fe718c
   spacy_version: 3.5.1
   spacy_git_version: 8153bd573
 norm-corpus:
@@ -358,14 +358,14 @@ evaluate-sm:
   cmd: python -m spacy run evaluate-sm
   script:
     - python -m spacy evaluate  ./training/sm/model-best  ./corpus/test/ --output
-      ./metrics/la_dep_cltk_sm_0.4.0.json  --code scripts/functions.py --gpu-id -1
+      ./metrics/la_core_cltk_sm_0.4.1.json  --code scripts/functions.py --gpu-id -1
   deps:
     - path: training/sm/model-best
       md5: 2188b9e2bfa348ec82cf1f34856a540b
     - path: corpus/test/
       md5: cd66d444f39540bbd0c99cbec1bb7e50
   outs:
-    - path: metrics/{vars.sm_dep_package_name}-{vars.dep_package_version}.json
+    - path: metrics/{vars.sm_core_package_name}-{vars.core_package_version}.json
       md5: null
   spacy_version: 3.5.1
   spacy_git_version: 8153bd573
@@ -505,21 +505,32 @@ clean:
 convert-ner:
   cmd: python -m spacy run convert-ner
   script:
-    - mkdir -p corpus/ner
-    - python scripts/convert.py la assets/ner/ner_train.json corpus/ner/ner_train.spacy
-    - python scripts/convert.py la assets/ner/ner_dev.json corpus/ner/ner_dev.spacy
+    - mkdir -p corpus/ner/train
+    - mkdir -p corpus/ner/dev
+    - python scripts/convert.py la assets/ner/ud-ner-train.json corpus/ner/train/ud_ner_train.spacy
+    - python scripts/convert.py la assets/ner/ud-ner-dev.json corpus/ner/dev/ud_ner_dev.spacy
+    - python scripts/convert.py la assets/ner/herodotos-ner-train.json corpus/ner/train/herodotos_ner_train.spacy
+    - python scripts/convert.py la assets/ner/herodotos-ner-train.json corpus/ner/dev/herodotos_ner_dev.spacy
   deps:
-    - path: assets/ner/ner_train.json
-      md5: a2826b72b3669fc76136a1b62fcea9e1
-    - path: assets/ner/ner_dev.json
-      md5: 0ac8bb06bb6e66969212ac2fd0322b33
+    - path: assets/ner/ud-ner-train.json
+      md5: 649ca5bc70e08d9991b7ebc55423871e
+    - path: assets/ner/ud-ner-dev.json
+      md5: 88a99384b6fcebc7f8fed532a0006585
+    - path: assets/ner/herodotos-ner-train.json
+      md5: a02676aa178c58325b1f85b4bf2e2046
+    - path: assets/ner/herodotos-ner-train.json
+      md5: a02676aa178c58325b1f85b4bf2e2046
     - path: scripts/convert.py
-      md5: 26a5ca230fbbafa8c01c5c85c46bea74
+      md5: 2fdf7eb940f2c437ab9a0f589824b6bc
   outs:
-    - path: corpus/ner/ner_train.spacy
-      md5: 033f7b5bf6174412c5b07ebc4088c86e
-    - path: corpus/ner/ner_dev.spacy
-      md5: 20d8baa7568cdf62b388f79ff2f9e265
+    - path: corpus/ner/train/ud_ner_train.spacy
+      md5: 46154503373bdd73f02504087e6d67fb
+    - path: corpus/ner/train/ud_ner_dev.spacy
+      md5: null
+    - path: corpus/ner/train/herodotos_ner_train.spacy
+      md5: 6418ff6808848c6e6353f2ecefb77bc4
+    - path: corpus/ner/train/herodotos_ner_dev.spacy
+      md5: null
   spacy_version: 3.5.1
   spacy_git_version: 8153bd573
 create-ner-config:
@@ -538,18 +549,18 @@ train-ner-sm:
   script:
     - mkdir -p training/sm/ner
     - python -m spacy train configs/ner_config.cfg --output training/sm/ner --paths.train
-      corpus/ner/ner_train.spacy --paths.dev corpus/ner/ner_dev.spacy --training.eval_frequency
-      10 --training.patience 50 --gpu-id -1
+      corpus/ner/train --paths.dev corpus/ner/dev --training.eval_frequency 10 --training.patience
+      50 --gpu-id -1
   deps:
     - path: configs/ner_config.cfg
       md5: 9554fcbc616751ec7a6695cc7fc21b27
-    - path: corpus/ner/ner_train.spacy
-      md5: 033f7b5bf6174412c5b07ebc4088c86e
-    - path: corpus/ner/ner_dev.spacy
-      md5: 20d8baa7568cdf62b388f79ff2f9e265
+    - path: corpus/ner/train
+      md5: 2c5c7961937139431d356ecc6ac65c4e
+    - path: corpus/ner/dev
+      md5: 850e333e68476b3c5a681788e80a9b79
   outs:
     - path: training/sm/ner/model-best
-      md5: d5e33978e2a08eebe0378222db965f28
+      md5: 59fd11eebb92554afb1cbd13b4c3d55c
   spacy_version: 3.5.1
   spacy_git_version: 8153bd573
 train-ner-md:
@@ -557,17 +568,16 @@ train-ner-md:
   script:
     - mkdir -p training/md/ner
     - python -m spacy train configs/ner_config.cfg --output training/md/ner --paths.train
-      corpus/ner/ner_train.spacy --paths.dev corpus/ner/ner_dev.spacy --training.eval_frequency
-      10 --training.patience 50 --gpu-id -1 --code scripts/functions.py --initialize.vectors
-      training/md/model-best --components.tok2vec.model.embed.include_static_vectors
-      true
+      corpus/ner/train --paths.dev corpus/ner/dev --training.eval_frequency 10 --training.patience
+      50 --gpu-id -1 --code scripts/functions.py --initialize.vectors training/md/model-best
+      --components.tok2vec.model.embed.include_static_vectors false
   deps:
     - path: configs/ner_config.cfg
       md5: 9554fcbc616751ec7a6695cc7fc21b27
-    - path: corpus/ner/ner_train.spacy
-      md5: 033f7b5bf6174412c5b07ebc4088c86e
-    - path: corpus/ner/ner_dev.spacy
-      md5: 20d8baa7568cdf62b388f79ff2f9e265
+    - path: corpus/ner/train
+      md5: 2c5c7961937139431d356ecc6ac65c4e
+    - path: corpus/ner/dev
+      md5: 850e333e68476b3c5a681788e80a9b79
   outs:
     - path: training/ner/md/model-best
       md5: null
@@ -616,12 +626,12 @@ package-sm-core:
   cmd: python -m spacy run package-sm-core
   script:
     - python -m spacy package  training/sm/model-assembled packages  --name core_cltk_sm  --version
-      0.4.0 --meta data/meta.json --code scripts/functions.py --force
+      0.4.1 --meta data/meta.json --code scripts/functions.py --force
   deps:
     - path: training/sm/model-assembled
       md5: b581ce8ed6808194df623985ff1ecaab
   outs:
-    - path: packages/la_dep_cltk_sm-0.4.0/dist/en_dep_cltk_sm-0.4.0.tar.gz
+    - path: packages/la_core_cltk_sm-0.4.1/dist/en_core_cltk_sm-0.4.1.tar.gz
       md5: null
   spacy_version: 3.5.1
   spacy_git_version: 8153bd573
@@ -629,12 +639,12 @@ package-md-core:
   cmd: python -m spacy run package-md-core
   script:
     - python -m spacy package  training/md/model-assembled packages  --name core_cltk_md  --version
-      0.4.0 --meta data/meta.json --code scripts/functions.py --force
+      0.4.1 --meta data/meta.json --code scripts/functions.py --force
   deps:
     - path: training/md/model-assembled
-      md5: b503651f7b2828b5e01e29bf589942c0
+      md5: a96e4a4d1aa18ecc955c6e1ee04385e6
   outs:
-    - path: packages/la_dep_cltk_md-0.4.0/dist/en_dep_cltk_md-0.4.0.tar.gz
+    - path: packages/la_core_cltk_md-0.4.1/dist/en_core_cltk_md-0.4.1.tar.gz
       md5: null
   spacy_version: 3.5.1
   spacy_git_version: 8153bd573

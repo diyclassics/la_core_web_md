@@ -1,15 +1,12 @@
 title: "la_core_cltk_md"
-description: "Code required to train spaCy-compatible md core model for Latin, i.e pipeline with POS tagger, morphologizer, lemmatizer, dependency parser, and NER trained on all available Latin UD treebanks, i.e. Perseus, PROIEL, ITTB, UDante, and LLCT (see below). The model contains floret vectors trained on Wikipedia, Oscar, and UD data. NER is based on custom tagged data based on tagger output and manual annotation; this data is included in `assets/local/ud-ner.tsv`. Note also that a sm model (i.e. without vectors) is trained in the same pipeline as are dep models (i.e. with NER component)."
+description: "Code required to train spaCy-compatible md core model for Latin, i.e pipeline with POS tagger, morphologizer, lemmatizer, dependency parser, and NER trained on all available Latin UD treebanks, i.e. Perseus, PROIEL, ITTB, UDante, and LLCT (see below). The model contains floret vectors trained on Wikipedia, Oscar, and UD data. NER is based on custom tagged data based on tagger output and manual annotation; this data is included in `assets/local/ud-ner.tsv`. Note also that a sm model (i.e. without vectors) is trained in the same pipeline."
 
 vars:
   config: "config"
   lang: "la"
-  sm_dep_package_name: "dep_cltk_sm"
-  md_dep_package_name: "dep_cltk_md"
   sm_core_package_name: "core_cltk_sm"
   md_core_package_name: "core_cltk_md"
-  dep_package_version: "0.4.0"
-  core_package_version: "0.4.0"
+  core_package_version: "0.4.1"
   gpu: -1
   treebank_pers: "UD_Latin-Perseus"
   treebank_proi: "UD_Latin-PROIEL"
@@ -50,8 +47,10 @@ vars:
   vector_thread: 16
   vector_lr: 0.05  
   # NER vars
-  ner_train: "ner/ner_train.json"
-  ner_dev: "ner/ner_dev.json"
+  ud_ner_train: "ner/ud-ner-train.json"
+  ud_ner_dev: "ner/ud-ner-dev.json"
+  herodotos_ner_train: "ner/herodotos-ner-train.json"
+  herodotos_ner_dev: "ner/herodotos-ner-train.json"
 
 spacy_version: ">=3.4.2,<3.6.0"
 check_requirements: true
@@ -112,9 +111,7 @@ workflows:
     - assemble-sm-core
     - assemble-md-core
     - assemble-meta
-    - package-sm-dep
     - package-sm-core
-    - package-md-dep
     - package-md-core
     - document    
     # - clean
@@ -377,7 +374,7 @@ commands:
         'vectors/la.floret'
         vectors/floret-la
         --mode floret
-        --name ${vars.lang}_${vars.md_dep_package_name}.vectors        
+        --name ${vars.lang}_${vars.md_core_package_name}.vectors        
 
   - name: init-labels
     help: "Initialize labels for components"
@@ -471,14 +468,14 @@ commands:
         python -m spacy evaluate 
         ./training/sm/model-best 
         ./corpus/test/
-        --output ./metrics/${vars.lang}_${vars.sm_dep_package_name}_${vars.dep_package_version}.json 
+        --output ./metrics/${vars.lang}_${vars.sm_core_package_name}_${vars.core_package_version}.json 
         --code scripts/functions.py
         --gpu-id ${vars.gpu}
     deps:
       - "training/sm/model-best"
       - "corpus/test/"
     outputs:
-      - "metrics/{vars.sm_dep_package_name}-{vars.dep_package_version}.json"
+      - "metrics/{vars.sm_core_package_name}-{vars.core_package_version}.json"
 
   - name: evaluate
     help: "Evaluate md model on the test data and save the metrics"
@@ -487,28 +484,35 @@ commands:
         python -m spacy evaluate 
         ./training/md/model-best 
         ./corpus/test/
-        --output ./metrics/${vars.lang}_${vars.md_dep_package_name}_${vars.dep_package_version}.json 
+        --output ./metrics/${vars.lang}_${vars.md_core_package_name}_${vars.core_package_version}.json 
         --code scripts/functions.py
         --gpu-id ${vars.gpu}
     deps:
       - "training/md/model-best"
       - "corpus/test/"
     outputs:
-      - "metrics/{vars.md_dep_package_name}-{vars.dep_package_version}.json"
+      - "metrics/{vars.md_core_package_name}-{vars.core_package_version}.json"
 
   - name: convert-ner
     help: "Convert the NER data to spaCy's binary format"
     script:
-      - "mkdir -p corpus/ner"
-      - "python scripts/convert.py ${vars.lang} assets/${vars.ner_train} corpus/ner/ner_train.spacy"
-      - "python scripts/convert.py ${vars.lang} assets/${vars.ner_dev} corpus/ner/ner_dev.spacy"
+      - "mkdir -p corpus/ner/train"
+      - "mkdir -p corpus/ner/dev"
+      - "python scripts/convert.py ${vars.lang} assets/${vars.ud_ner_train} corpus/ner/train/ud_ner_train.spacy"
+      - "python scripts/convert.py ${vars.lang} assets/${vars.ud_ner_dev} corpus/ner/dev/ud_ner_dev.spacy"
+      - "python scripts/convert.py ${vars.lang} assets/${vars.herodotos_ner_train} corpus/ner/train/herodotos_ner_train.spacy"
+      - "python scripts/convert.py ${vars.lang} assets/${vars.herodotos_ner_dev} corpus/ner/dev/herodotos_ner_dev.spacy"
     deps:
-      - "assets/${vars.ner_train}"
-      - "assets/${vars.ner_dev}"
+      - "assets/${vars.ud_ner_train}"
+      - "assets/${vars.ud_ner_dev}"
+      - "assets/${vars.herodotos_ner_train}"
+      - "assets/${vars.herodotos_ner_dev}"
       - "scripts/convert.py"
     outputs:
-      - "corpus/ner/ner_train.spacy"
-      - "corpus/ner/ner_dev.spacy"
+      - "corpus/ner/train/ud_ner_train.spacy"
+      - "corpus/ner/train/ud_ner_dev.spacy"
+      - "corpus/ner/train/herodotos_ner_train.spacy"
+      - "corpus/ner/train/herodotos_ner_dev.spacy"
 
   - name: create-ner-config
     help: "Create a new config with an NER pipeline component"
@@ -521,11 +525,11 @@ commands:
     help: "Train the NER model for the sm model"
     script:
       - "mkdir -p training/sm/ner"
-      - "python -m spacy train configs/ner_config.cfg --output training/sm/ner --paths.train corpus/ner/ner_train.spacy --paths.dev corpus/ner/ner_dev.spacy --training.eval_frequency 10 --training.patience 50 --gpu-id ${vars.gpu}"
+      - "python -m spacy train configs/ner_config.cfg --output training/sm/ner --paths.train corpus/ner/train --paths.dev corpus/ner/dev --training.eval_frequency 10 --training.patience 50 --gpu-id ${vars.gpu}"
     deps:
       - "configs/ner_config.cfg"
-      - "corpus/ner/ner_train.spacy"
-      - "corpus/ner/ner_dev.spacy"
+      - "corpus/ner/train"
+      - "corpus/ner/dev"
     outputs:
       - "training/sm/ner/model-best"
 
@@ -533,11 +537,11 @@ commands:
     help: "Train the NER model for the md model"
     script:
       - "mkdir -p training/md/ner"
-      - "python -m spacy train configs/ner_config.cfg --output training/md/ner --paths.train corpus/ner/ner_train.spacy --paths.dev corpus/ner/ner_dev.spacy --training.eval_frequency 10 --training.patience 50 --gpu-id ${vars.gpu} --code scripts/functions.py --initialize.vectors training/md/model-best --components.tok2vec.model.embed.include_static_vectors true"
+      - "python -m spacy train configs/ner_config.cfg --output training/md/ner --paths.train corpus/ner/train --paths.dev corpus/ner/dev --training.eval_frequency 10 --training.patience 50 --gpu-id ${vars.gpu} --code scripts/functions.py --initialize.vectors training/md/model-best --components.tok2vec.model.embed.include_static_vectors false"
     deps:
       - "configs/ner_config.cfg"
-      - "corpus/ner/ner_train.spacy"
-      - "corpus/ner/ner_dev.spacy"
+      - "corpus/ner/train"
+      - "corpus/ner/dev"
     outputs:
       - "training/ner/md/model-best"
 
@@ -573,22 +577,6 @@ commands:
       - "python scripts/assemble_meta.py --dep_meta training/sm/model-best/meta.json --ner_meta training/sm/ner/model-best/meta.json --assembled_meta training/sm/model-assembled/meta.json"    
       - "python scripts/assemble_meta.py --dep_meta training/md/model-best/meta.json --ner_meta training/md/ner/model-best/meta.json --assembled_meta training/md/model-assembled/meta.json"
 
-  - name: package-sm-dep
-    help: "Package the trained sm dep model"
-    script:
-      - >-
-        python -m spacy package 
-        training/sm/model-best packages 
-        --name ${vars.sm_dep_package_name} 
-        --version ${vars.dep_package_version}
-        --meta data/meta.json
-        --code scripts/functions.py
-        --force
-    deps:
-      - "training/sm/model-best"
-    outputs_no_cache:
-      - "packages/${vars.lang}_${vars.sm_dep_package_name}-${vars.dep_package_version}/dist/en_${vars.sm_dep_package_name}-${vars.dep_package_version}.tar.gz"
-
   - name: package-sm-core
     help: "Package the trained sm core model"
     script:
@@ -603,23 +591,7 @@ commands:
     deps:
       - "training/sm/model-assembled"
     outputs_no_cache:
-      - "packages/${vars.lang}_${vars.sm_dep_package_name}-${vars.dep_package_version}/dist/en_${vars.sm_dep_package_name}-${vars.dep_package_version}.tar.gz"            
-
-  - name: package-md-dep
-    help: "Package the trained md dep model"
-    script:
-      - >-
-        python -m spacy package 
-        training/md/model-best packages 
-        --name ${vars.md_dep_package_name} 
-        --version ${vars.dep_package_version}
-        --meta data/meta.json
-        --code scripts/functions.py
-        --force
-    deps:
-      - "training/md/model-best"
-    outputs_no_cache:
-      - "packages/${vars.lang}_${vars.md_dep_package_name}-${vars.dep_package_version}/dist/en_${vars.md_dep_package_name}-${vars.dep_package_version}.tar.gz"
+      - "packages/${vars.lang}_${vars.sm_core_package_name}-${vars.core_package_version}/dist/en_${vars.sm_core_package_name}-${vars.core_package_version}.tar.gz"            
 
   - name: package-md-core
     help: "Package the trained md core model"
@@ -635,7 +607,7 @@ commands:
     deps:
       - "training/md/model-assembled"
     outputs_no_cache:
-      - "packages/${vars.lang}_${vars.md_dep_package_name}-${vars.dep_package_version}/dist/en_${vars.md_dep_package_name}-${vars.dep_package_version}.tar.gz"            
+      - "packages/${vars.lang}_${vars.md_core_package_name}-${vars.core_package_version}/dist/en_${vars.md_core_package_name}-${vars.core_package_version}.tar.gz"            
 
   - name: document
     help: "Document ${vars.md_core_package_name}"
