@@ -302,7 +302,7 @@ document:
   deps: []
   outs:
     - path: README.md
-      md5: a53b1c3f38c7b22b6782e75941fe718c
+      md5: 0fc5dd9567822cad6465c8516abc51a8
   spacy_version: 3.5.1
   spacy_git_version: 8153bd573
 norm-corpus:
@@ -626,12 +626,12 @@ package-sm-core:
   cmd: python -m spacy run package-sm-core
   script:
     - python -m spacy package  training/sm/model-assembled packages  --name core_cltk_sm  --version
-      0.4.1 --meta data/meta.json --code scripts/functions.py --force
+      3.5.0 --meta data/meta.json --code scripts/functions.py --force
   deps:
     - path: training/sm/model-assembled
       md5: b581ce8ed6808194df623985ff1ecaab
   outs:
-    - path: packages/la_core_cltk_sm-0.4.1/dist/en_core_cltk_sm-0.4.1.tar.gz
+    - path: packages/la_core_cltk_sm-3.5.0/dist/en_core_cltk_sm-3.5.0.tar.gz
       md5: null
   spacy_version: 3.5.1
   spacy_git_version: 8153bd573
@@ -639,12 +639,12 @@ package-md-core:
   cmd: python -m spacy run package-md-core
   script:
     - python -m spacy package  training/md/model-assembled packages  --name core_cltk_md  --version
-      0.4.1 --meta data/meta.json --code scripts/functions.py --force
+      3.5.0 --meta data/meta.json --code scripts/functions.py --force
   deps:
     - path: training/md/model-assembled
       md5: a96e4a4d1aa18ecc955c6e1ee04385e6
   outs:
-    - path: packages/la_core_cltk_md-0.4.1/dist/en_core_cltk_md-0.4.1.tar.gz
+    - path: packages/la_core_cltk_md-3.5.0/dist/en_core_cltk_md-3.5.0.tar.gz
       md5: null
   spacy_version: 3.5.1
   spacy_git_version: 8153bd573

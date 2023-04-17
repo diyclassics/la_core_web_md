@@ -89,7 +89,7 @@ in the project directory.
 | Feature | Description |
 | --- | --- |
 | **Name** | `la_core_cltk_md` |
-| **Version** | `0.4.1` |
+| **Version** | `3.5.0` |
 | **spaCy** | `>=3.5.1,<3.6.0` |
 | **Default Pipeline** | `normer`, `tok2vec`, `tagger`, `morphologizer`, `trainable_lemmatizer`, `parser`, `lemma_fixer`, `ner` |
 | **Components** | `senter`, `normer`, `tok2vec`, `tagger`, `morphologizer`, `trainable_lemmatizer`, `parser`, `lemma_fixer`, `ner` |

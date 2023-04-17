@@ -6,7 +6,7 @@ vars:
   lang: "la"
   sm_core_package_name: "core_cltk_sm"
   md_core_package_name: "core_cltk_md"
-  core_package_version: "0.4.1"
+  core_package_version: "3.5.0"
   gpu: -1
   treebank_pers: "UD_Latin-Perseus"
   treebank_proi: "UD_Latin-PROIEL"
