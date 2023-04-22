@@ -167,3 +167,4 @@ cython_debug/
 
 # Local
 assets/original/
+scripts/tsv2ner.py

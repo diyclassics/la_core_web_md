@@ -1,12 +1,12 @@
 title: "la_core_cltk_md"
-description: "Code required to train spaCy-compatible md core model for Latin, i.e pipeline with POS tagger, morphologizer, lemmatizer, dependency parser, and NER trained on all available Latin UD treebanks, i.e. Perseus, PROIEL, ITTB, UDante, and LLCT (see below). The model contains floret vectors trained on Wikipedia, Oscar, and UD data. NER is based on custom tagged data based on tagger output and manual annotation; this data is included in `assets/local/ud-ner.tsv`. Note also that a sm model (i.e. without vectors) is trained in the same pipeline."
+description: "Code required to train spaCy-compatible md core model for Latin, i.e pipeline with POS tagger, morphologizer, lemmatizer, dependency parser, and NER trained on all available Latin UD treebanks, i.e. Perseus, PROIEL, ITTB, UDante, and LLCT (see below). The model contains floret vectors trained on Wikipedia, Oscar, and UD data. NER is based on custom tagged data based on tagger output and manual annotation, supplemented by data from the Herodotos Project; this data is included in `assets/ner/`. Note also that a sm model (i.e. without vectors) is trained in the same pipeline."
 
 vars:
   config: "config"
   lang: "la"
-  sm_core_package_name: "core_cltk_sm"
-  md_core_package_name: "core_cltk_md"
-  core_package_version: "3.5.0"
+  sm_core_package_name: "core_web_sm"
+  md_core_package_name: "core_web_md"
+  core_package_version: "3.5.1"
   gpu: -1
   treebank_pers: "UD_Latin-Perseus"
   treebank_proi: "UD_Latin-PROIEL"
@@ -52,7 +52,7 @@ vars:
   herodotos_ner_train: "ner/herodotos-ner-train.json"
   herodotos_ner_dev: "ner/herodotos-ner-train.json"
 
-spacy_version: ">=3.4.2,<3.6.0"
+spacy_version: ">=3.5.1,<3.6.0"
 check_requirements: true
 
 directories: ["assets", "corpus", "training", "configs", "metrics", "packages", "scripts", "vectors"]
@@ -108,13 +108,14 @@ workflows:
     - convert-ner
     - create-ner-config
     - train-ner-sm
+    - train-ner-md
     - assemble-sm-core
     - assemble-md-core
     - assemble-meta
     - package-sm-core
     - package-md-core
     - document    
-    # - clean
+    - clean
 
 commands:
   - name: assets
@@ -543,7 +544,7 @@ commands:
       - "corpus/ner/train"
       - "corpus/ner/dev"
     outputs:
-      - "training/ner/md/model-best"
+      - "training/md/ner/model-best"
 
   - name: assemble-sm-core
     help: "Assemble sm core model, i.e. add NER component to dep model"
@@ -621,7 +622,6 @@ commands:
   - name: clean
     help: "Remove intermediate files"
     script:
-      - sh -c "rm -rf assets/ner/*"
       - sh -c "rm -rf assets/original/*"      
       - sh -c "rm -rf assets/processed/*"
       - sh -c "rm -rf assets/preprocess/*"
@@ -629,3 +629,4 @@ commands:
       - sh -c "rm -rf metrics/*"
       - sh -c "rm -rf training/*"
       - sh -c "rm -rf vectors/*"
+

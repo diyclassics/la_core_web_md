@@ -1,8 +1,8 @@
 <!-- SPACY PROJECT: AUTO-GENERATED DOCS START (do not remove) -->
 
-# 🪐 spaCy Project: la_core_cltk_md
+# 🪐 spaCy Project: la_core_web_md
 
-Code required to train spaCy-compatible md core model for Latin, i.e pipeline with POS tagger, morphologizer, lemmatizer, dependency parser, and NER trained on all available Latin UD treebanks, i.e. Perseus, PROIEL, ITTB, UDante, and LLCT (see below). The model contains floret vectors trained on Wikipedia, Oscar, and UD data. NER is based on custom tagged data based on tagger output and manual annotation; this data is included in `assets/local/ud-ner.tsv`. Note also that a sm model (i.e. without vectors) is trained in the same pipeline.
+Code required to train spaCy-compatible md core model for Latin, i.e pipeline with POS tagger, morphologizer, lemmatizer, dependency parser, and NER trained on all available Latin UD treebanks, i.e. Perseus, PROIEL, ITTB, UDante, and LLCT (see below). The model contains floret vectors trained on Wikipedia, Oscar, and UD data. NER is based on custom tagged data based on tagger output and manual annotation, supplemented by data from the Herodotos Project; this data is included in `assets/ner/`. Note also that a sm model (i.e. without vectors) is trained in the same pipeline.
 
 ## 📋 project.yml
 
@@ -43,7 +43,7 @@ Commands are only re-run if their inputs have changed.
 | `assemble-meta` | Assemble meta.json files so that all metrics are included |
 | `package-sm-core` | Package the trained sm core model |
 | `package-md-core` | Package the trained md core model |
-| `document` | Document core_cltk_md |
+| `document` | Document core_web_md |
 | `clean` | Remove intermediate files |
 
 ### ⏭ Workflows
@@ -55,7 +55,7 @@ inputs have changed.
 
 | Workflow | Steps |
 | --- | --- |
-| `all` | `assets` &rarr; `preprocess` &rarr; `convert` &rarr; `norm-corpus` &rarr; `extract-wikipedia` &rarr; `tokenize-wikipedia` &rarr; `tokenize-oscar` &rarr; `tokenize-ud` &rarr; `create-input` &rarr; `train-floret-vectors` &rarr; `load-vectors` &rarr; `init-labels` &rarr; `train-sm` &rarr; `train` &rarr; `evaluate-sm` &rarr; `evaluate` &rarr; `convert-ner` &rarr; `create-ner-config` &rarr; `train-ner-sm` &rarr; `assemble-sm-core` &rarr; `assemble-md-core` &rarr; `assemble-meta` &rarr; `package-sm-core` &rarr; `package-md-core` &rarr; `document` |
+| `all` | `assets` &rarr; `preprocess` &rarr; `convert` &rarr; `norm-corpus` &rarr; `extract-wikipedia` &rarr; `tokenize-wikipedia` &rarr; `tokenize-oscar` &rarr; `tokenize-ud` &rarr; `create-input` &rarr; `train-floret-vectors` &rarr; `load-vectors` &rarr; `init-labels` &rarr; `train-sm` &rarr; `train` &rarr; `evaluate-sm` &rarr; `evaluate` &rarr; `convert-ner` &rarr; `create-ner-config` &rarr; `train-ner-sm` &rarr; `train-ner-md` &rarr; `assemble-sm-core` &rarr; `assemble-md-core` &rarr; `assemble-meta` &rarr; `package-sm-core` &rarr; `package-md-core` &rarr; `document` &rarr; `clean` |
 
 ### 🗂 Assets
 
@@ -77,20 +77,20 @@ in the project directory.
 ## Install
 
 - To install the current version...
-    - `pip install https://huggingface.co/diyclassics/la_core_cltk_md/resolve/main/la_core_cltk_md-3.5.0/dist/la_core_cltk_md-3.5.0.tar.gz`
+    - `pip install https://huggingface.co/diyclassics/la_core_web_md/resolve/main/la_core_web_md-3.5.1/dist/la_core_web_md-3.5.1.tar.gz`
 
 ## Model repository
 
 - The model itself can be found here:
-    - https://huggingface.co/diyclassics/la_core_cltk_md
+    - https://huggingface.co/diyclassics/la_core_web_md
 
 ## Current version
 
 | Feature | Description |
 | --- | --- |
-| **Name** | `la_core_cltk_md` |
-| **Version** | `3.5.0` |
-| **spaCy** | `>=3.5.1,<3.6.0` |
+| **Name** | `la_core_web_md` |
+| **Version** | `3.5.1` |
+| **spaCy** | `>=3.5.2,<3.6.0` |
 | **Default Pipeline** | `normer`, `tok2vec`, `tagger`, `morphologizer`, `trainable_lemmatizer`, `parser`, `lemma_fixer`, `ner` |
 | **Components** | `senter`, `normer`, `tok2vec`, `tagger`, `morphologizer`, `trainable_lemmatizer`, `parser`, `lemma_fixer`, `ner` |
 | **Vectors** | -1 keys, 50000 unique vectors (300 dimensions) |

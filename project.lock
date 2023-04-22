@@ -5,8 +5,8 @@ assets:
     - python -m spacy project assets
   deps: []
   outs: []
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 preprocess:
   cmd: python -m spacy run preprocess
   script:
@@ -19,8 +19,8 @@ preprocess:
     - python scripts/tsv2conllu.py
   deps: []
   outs: []
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 convert:
   cmd: python -m spacy run convert
   script:
@@ -116,8 +116,8 @@ convert:
       md5: bff3b570b9f0bfd672100b0616b38380
     - path: corpus/test/mod-la_udante-ud-test.spacy
       md5: d4a57a3aff2b70c59d07e7bbb388be6c
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 extract-wikipedia:
   cmd: python -m spacy run extract-wikipedia
   script:
@@ -127,8 +127,8 @@ extract-wikipedia:
   outs:
     - path: vectors/extracted/la_wiki_latest/AA/wiki_00
       md5: 983e77a1c3e4e9eb1fd0f2ed8e0ac3d5
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 tokenize-wikipedia:
   cmd: python -m spacy run tokenize-wikipedia
   script:
@@ -142,8 +142,8 @@ tokenize-wikipedia:
   outs:
     - path: vectors/tokenized/la_wiki_latest.txt
       md5: 7f0374a0d97286ee5aff1fbe218c8349
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 tokenize-oscar:
   cmd: python -m spacy run tokenize-oscar
   script:
@@ -156,8 +156,8 @@ tokenize-oscar:
   outs:
     - path: vectors/tokenized/la_oscar_unshuffled_deduplicated_la.txt
       md5: d6159704f617b6d9466a224a41dbddc9
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 create-input:
   cmd: python -m spacy run create-input
   script:
@@ -175,8 +175,8 @@ create-input:
   outs:
     - path: vectors/input/la.txt
       md5: 5d3042317e5d029ee0a588a46ae40b75
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 train-floret-vectors:
   cmd: python -m spacy run train-floret-vectors
   script:
@@ -190,9 +190,9 @@ train-floret-vectors:
       md5: 5d3042317e5d029ee0a588a46ae40b75
   outs:
     - path: vectors/la.floret
-      md5: a80b3f3ec2bfc5ad67de4073143e8f7a
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+      md5: 2db354d5e7090741711beb977dc018ad
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 train-fasttext-vectors:
   cmd: python -m spacy run train-fasttext-vectors
   script:
@@ -215,17 +215,17 @@ tokenize-ud:
     - python scripts/sentencize_ud.py
   deps: []
   outs: []
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 load-vectors:
   cmd: python -m spacy run load-vectors
   script:
     - "python -m spacy init vectors la 'vectors/la.floret' vectors/floret-la --mode\
-      \ floret --name la_core_cltk_md.vectors        "
+      \ floret --name la_core_web_md.vectors        "
   deps: []
   outs: []
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 train:
   cmd: python -m spacy run train
   script:
@@ -264,24 +264,24 @@ train:
       md5: 33f4650d605d0af06468bee821896521
   outs:
     - path: training/md/model-best
-      md5: aead35dfed911fecf606621c3b6c70f1
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+      md5: 5cb8a7428c9634915db2d4af326327e5
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 evaluate:
   cmd: python -m spacy run evaluate
   script:
     - python -m spacy evaluate  ./training/md/model-best  ./corpus/test/ --output
-      ./metrics/la_core_cltk_md_0.4.1.json  --code scripts/functions.py --gpu-id -1
+      ./metrics/la_core_web_md_3.5.1.json  --code scripts/functions.py --gpu-id -1
   deps:
     - path: training/md/model-best
-      md5: aead35dfed911fecf606621c3b6c70f1
+      md5: 5cb8a7428c9634915db2d4af326327e5
     - path: corpus/test/
       md5: cd66d444f39540bbd0c99cbec1bb7e50
   outs:
     - path: metrics/{vars.md_core_package_name}-{vars.core_package_version}.json
       md5: null
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 package-dep:
   cmd: python -m spacy run package-dep
   script:
@@ -302,17 +302,17 @@ document:
   deps: []
   outs:
     - path: README.md
-      md5: 0fc5dd9567822cad6465c8516abc51a8
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+      md5: 185bd55e040384e2c64735dc398fba0e
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 norm-corpus:
   cmd: python -m spacy run norm-corpus
   script:
     - python scripts/norm_docbin.py
   deps: []
   outs: []
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 train-sm:
   cmd: python -m spacy run train-sm
   script:
@@ -351,24 +351,24 @@ train-sm:
       md5: 919d2a67d3dc537f6de814c98e144ba3
   outs:
     - path: training/sm/model-best
-      md5: 2188b9e2bfa348ec82cf1f34856a540b
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+      md5: 652eaf03ca939a1fc5e10c18bb97ef40
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 evaluate-sm:
   cmd: python -m spacy run evaluate-sm
   script:
     - python -m spacy evaluate  ./training/sm/model-best  ./corpus/test/ --output
-      ./metrics/la_core_cltk_sm_0.4.1.json  --code scripts/functions.py --gpu-id -1
+      ./metrics/la_core_web_sm_3.5.1.json  --code scripts/functions.py --gpu-id -1
   deps:
     - path: training/sm/model-best
-      md5: 2188b9e2bfa348ec82cf1f34856a540b
+      md5: 652eaf03ca939a1fc5e10c18bb97ef40
     - path: corpus/test/
       md5: cd66d444f39540bbd0c99cbec1bb7e50
   outs:
     - path: metrics/{vars.sm_core_package_name}-{vars.core_package_version}.json
       md5: null
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 package-sm:
   cmd: python -m spacy run package-sm
   script:
@@ -475,8 +475,8 @@ init-labels:
       md5: 415dfc952b1fca2d86bc796ac6d8f402
     - path: corpus/labels/trainable_lemmatizer.json
       md5: 4f33d0af49d6f4fa680c648f1252f79b
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 package:
   cmd: python -m spacy run package
   script:
@@ -493,15 +493,13 @@ package:
 clean:
   cmd: python -m spacy run clean
   script:
-    - sh -c "rm -rf assets/*"
-    - sh -c "rm -rf corpus/*"
-    - sh -c "rm -rf metrics/*"
-    - sh -c "rm -rf training/*"
-    - sh -c "rm -rf vectors/*"
+    - sh -c "rm -rf assets/original/*"
+    - sh -c "rm -rf assets/processed/*"
+    - sh -c "rm -rf assets/preprocess/*"
   deps: []
   outs: []
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 convert-ner:
   cmd: python -m spacy run convert-ner
   script:
@@ -531,8 +529,8 @@ convert-ner:
       md5: 6418ff6808848c6e6353f2ecefb77bc4
     - path: corpus/ner/train/herodotos_ner_dev.spacy
       md5: null
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 create-ner-config:
   cmd: python -m spacy run create-ner-config
   script:
@@ -542,8 +540,8 @@ create-ner-config:
   outs:
     - path: configs/ner_config.cfg
       md5: 9554fcbc616751ec7a6695cc7fc21b27
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 train-ner-sm:
   cmd: python -m spacy run train-ner-sm
   script:
@@ -560,9 +558,9 @@ train-ner-sm:
       md5: 850e333e68476b3c5a681788e80a9b79
   outs:
     - path: training/sm/ner/model-best
-      md5: 59fd11eebb92554afb1cbd13b4c3d55c
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+      md5: 858ba13429b4585ff7e9fc9a58192e8f
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 train-ner-md:
   cmd: python -m spacy run train-ner-md
   script:
@@ -579,10 +577,10 @@ train-ner-md:
     - path: corpus/ner/dev
       md5: 850e333e68476b3c5a681788e80a9b79
   outs:
-    - path: training/ner/md/model-best
-      md5: null
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+    - path: training/md/ner/model-best
+      md5: fbfff3f9d7eaab54c340baeace68ef5a
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 assemble-sm-core:
   cmd: python -m spacy run assemble-sm-core
   script:
@@ -590,12 +588,12 @@ assemble-sm-core:
       --code scripts/functions.py
   deps:
     - path: training/sm/model-best
-      md5: 2188b9e2bfa348ec82cf1f34856a540b
+      md5: 652eaf03ca939a1fc5e10c18bb97ef40
   outs:
     - path: metrics/{vars.core_package_name}-{vars.core_package_version}.json
       md5: null
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 assemble-md-core:
   cmd: python -m spacy run assemble-md-core
   script:
@@ -603,12 +601,12 @@ assemble-md-core:
       --code scripts/functions.py
   deps:
     - path: training/md/model-best
-      md5: aead35dfed911fecf606621c3b6c70f1
+      md5: 5cb8a7428c9634915db2d4af326327e5
   outs:
     - path: metrics/{vars.core_package_name}-{vars.core_package_version}.json
       md5: null
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 package-sm-dep:
   cmd: python -m spacy run package-sm-dep
   script:
@@ -625,29 +623,29 @@ package-sm-dep:
 package-sm-core:
   cmd: python -m spacy run package-sm-core
   script:
-    - python -m spacy package  training/sm/model-assembled packages  --name core_cltk_sm  --version
-      3.5.0 --meta data/meta.json --code scripts/functions.py --force
+    - python -m spacy package  training/sm/model-assembled packages  --name core_web_sm  --version
+      3.5.1 --meta data/meta.json --code scripts/functions.py --force
   deps:
     - path: training/sm/model-assembled
-      md5: b581ce8ed6808194df623985ff1ecaab
+      md5: 1e596f106765f2808872275858e6a132
   outs:
-    - path: packages/la_core_cltk_sm-3.5.0/dist/en_core_cltk_sm-3.5.0.tar.gz
+    - path: packages/la_core_web_sm-3.5.1/dist/en_core_web_sm-3.5.1.tar.gz
       md5: null
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 package-md-core:
   cmd: python -m spacy run package-md-core
   script:
-    - python -m spacy package  training/md/model-assembled packages  --name core_cltk_md  --version
-      3.5.0 --meta data/meta.json --code scripts/functions.py --force
+    - python -m spacy package  training/md/model-assembled packages  --name core_web_md  --version
+      3.5.1 --meta data/meta.json --code scripts/functions.py --force
   deps:
     - path: training/md/model-assembled
-      md5: a96e4a4d1aa18ecc955c6e1ee04385e6
+      md5: 06f043b05b07145dfad4862158e40a2f
   outs:
-    - path: packages/la_core_cltk_md-3.5.0/dist/en_core_cltk_md-3.5.0.tar.gz
+    - path: packages/la_core_web_md-3.5.1/dist/en_core_web_md-3.5.1.tar.gz
       md5: null
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 package-md-dep:
   cmd: python -m spacy run package-md-dep
   script:
@@ -670,5 +668,5 @@ assemble-meta:
       --ner_meta training/md/ner/model-best/meta.json --assembled_meta training/md/model-assembled/meta.json
   deps: []
   outs: []
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
