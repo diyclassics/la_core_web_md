@@ -63,7 +63,7 @@ in the project directory.
 ## Install
 
 - To install the current version...
-    - `pip install https://huggingface.co/diyclassics/la_core_web_md/resolve/main/la_core_web_md-3.5.1/dist/la_core_web_md-3.5.1.tar.gz`
+    - `pip install https://huggingface.co/diyclassics/la_core_web_md/resolve/main/la_core_web_md-any-py3-none-any.whl`
 
 ## Model repository
 
