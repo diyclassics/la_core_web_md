@@ -4,7 +4,17 @@ assets:
     - mkdir -p assets/original
     - python -m spacy project assets
   deps: []
-  outs: []
+  outs:
+    - path: assets/original/UD_Latin-Perseus
+      md5: 1aafce34726fd126766ce6e5f2251f8b
+    - path: assets/original/UD_Latin-PROIEL
+      md5: a2ba71bcb99466f3dee3a459a51d796a
+    - path: assets/original/UD_Latin-ITTB
+      md5: 932466f39feefa410874604c07563b23
+    - path: assets/original/UD_Latin-UDante
+      md5: 471e797cee9cca3a73231854f93f69a9
+    - path: assets/original/UD_Latin-LLCT
+      md5: 2da20cdd4f8931617e550d4f44b8e659
   spacy_version: 3.5.2
   spacy_git_version: aea4a96f9
 preprocess:
@@ -18,7 +28,35 @@ preprocess:
     - mkdir -p assets/processed
     - python scripts/tsv2conllu.py
   deps: []
-  outs: []
+  outs:
+    - path: assets/processed/mod-la_perseus-ud-train.conllu
+      md5: 36d70a8301b6152626f76f605a93ae88
+    - path: assets/processed/mod-la_perseus-ud-test.conllu
+      md5: 5d531f474550bb5913b4be305457a370
+    - path: assets/processed/mod-la_proiel-ud-train.conllu
+      md5: de64b7acba2d412e798afbb90915e333
+    - path: assets/processed/mod-la_proiel-ud-dev.conllu
+      md5: 7ba7f0960b7c6a58c2abfdcba034aaa6
+    - path: assets/processed/mod-la_proiel-ud-test.conllu
+      md5: 4789f51c8f125d19460e8ae58e29f47f
+    - path: assets/processed/mod-la_ittb-ud-train.conllu
+      md5: df0e70823b80a9799b3c2836cd790ca5
+    - path: assets/processed/mod-la_ittb-ud-dev.conllu
+      md5: 0d21ab01777b70cc0341bcda89f46186
+    - path: assets/processed/mod-la_ittb-ud-test.conllu
+      md5: 6fcc35e32aeb60261fb2dfb05131cb1c
+    - path: assets/processed/mod-la_llct-ud-train.conllu
+      md5: 9746b73dba3115b19d577771bc4ce04c
+    - path: assets/processed/mod-la_llct-ud-dev.conllu
+      md5: a06495b4ba0def987cbf9021d7a2ee62
+    - path: assets/processed/mod-la_llct-ud-test.conllu
+      md5: a1ced40c6c41c45a148c9288dd8a7cb5
+    - path: assets/processed/mod-la_udante-ud-train.conllu
+      md5: 99cc02dc0e566b13a82e5b8761c182f0
+    - path: assets/processed/mod-la_udante-ud-dev.conllu
+      md5: 7548802617b7c321989c9753327f18e4
+    - path: assets/processed/mod-la_udante-ud-test.conllu
+      md5: 06cf5ef54ad5fe820cbf511c0b4f5f85
   spacy_version: 3.5.2
   spacy_git_version: aea4a96f9
 convert:
@@ -229,7 +267,7 @@ load-vectors:
 train:
   cmd: python -m spacy run train
   script:
-    - python -m spacy train  configs/config-md.cfg --output training/md --gpu-id -1  --paths.train
+    - python -m spacy train  configs/config.cfg --output training --gpu-id -1  --paths.train
       corpus/train --paths.dev corpus/dev --nlp.lang=la --code scripts/functions.py
   deps:
     - path: corpus/train/mod-la_perseus-ud-train.spacy
@@ -260,25 +298,25 @@ train:
       md5: 2a3fb1f37dbfd997a81bb381434145e6
     - path: corpus/test/mod-la_udante-ud-test.spacy
       md5: b39b5bfca042c773d50228732f90962d
-    - path: configs/config-md.cfg
-      md5: 33f4650d605d0af06468bee821896521
+    - path: configs/config.cfg
+      md5: 778ad8b838ac28c9ba4f877994d18a6c
   outs:
-    - path: training/md/model-best
-      md5: 5cb8a7428c9634915db2d4af326327e5
+    - path: training/model-best
+      md5: 7ebfa798fdc4d4a6fd490b18707c6f6f
   spacy_version: 3.5.2
   spacy_git_version: aea4a96f9
 evaluate:
   cmd: python -m spacy run evaluate
   script:
-    - python -m spacy evaluate  ./training/md/model-best  ./corpus/test/ --output
-      ./metrics/la_core_web_md_3.5.1.json  --code scripts/functions.py --gpu-id -1
+    - python -m spacy evaluate  ./training/model-best  ./corpus/test/ --output ./metrics/la_core_web_md_3.5.2.json  --code
+      scripts/functions.py --gpu-id -1
   deps:
-    - path: training/md/model-best
-      md5: 5cb8a7428c9634915db2d4af326327e5
+    - path: training/model-best
+      md5: 7ebfa798fdc4d4a6fd490b18707c6f6f
     - path: corpus/test/
       md5: cd66d444f39540bbd0c99cbec1bb7e50
   outs:
-    - path: metrics/{vars.md_core_package_name}-{vars.core_package_version}.json
+    - path: metrics/{vars.package_name}-{vars.package_version}.json
       md5: null
   spacy_version: 3.5.2
   spacy_git_version: aea4a96f9
@@ -302,7 +340,7 @@ document:
   deps: []
   outs:
     - path: README.md
-      md5: 185bd55e040384e2c64735dc398fba0e
+      md5: 26caf61e9727228a98826ca66a06cb69
   spacy_version: 3.5.2
   spacy_git_version: aea4a96f9
 norm-corpus:
@@ -310,7 +348,35 @@ norm-corpus:
   script:
     - python scripts/norm_docbin.py
   deps: []
-  outs: []
+  outs:
+    - path: corpus/train/mod-la_perseus-ud-train.spacy
+      md5: 3e2414254ba92b7a66de8e08eb6e4b5c
+    - path: corpus/train/mod-la_proiel-ud-train.spacy
+      md5: fc4663c6ca402afb7dc8dca8c1e1c638
+    - path: corpus/train/mod-la_ittb-ud-train.spacy
+      md5: db1e7a9aabce40cab853324e6e1b8ef3
+    - path: corpus/train/mod-la_llct-ud-train.spacy
+      md5: 80576bdaeacaa49433dddfcc64db8114
+    - path: corpus/train/mod-la_udante-ud-train.spacy
+      md5: 6170cf2f3e0a3c31683ebc447841b254
+    - path: corpus/dev/mod-la_proiel-ud-dev.spacy
+      md5: a6ee85eed58427281cbe6967fa54ffc8
+    - path: corpus/dev/mod-la_ittb-ud-dev.spacy
+      md5: ab928011dc4fd5b57d3533617e909324
+    - path: corpus/dev/mod-la_llct-ud-dev.spacy
+      md5: 91c49c49c7c440476c15bb1fafca830b
+    - path: corpus/dev/mod-la_udante-ud-dev.spacy
+      md5: 8b4d4fa02657b9c97019850b35ee4b2a
+    - path: corpus/test/mod-la_perseus-ud-test.spacy
+      md5: 599ead0a966640ef5f051234c5415843
+    - path: corpus/test/mod-la_proiel-ud-test.spacy
+      md5: fd5ca642812a979d7086a88693895547
+    - path: corpus/test/mod-la_ittb-ud-test.spacy
+      md5: c9d758fea2b2a0283253bdbb609ba729
+    - path: corpus/test/mod-la_llct-ud-test.spacy
+      md5: 2a3fb1f37dbfd997a81bb381434145e6
+    - path: corpus/test/mod-la_udante-ud-test.spacy
+      md5: b39b5bfca042c773d50228732f90962d
   spacy_version: 3.5.2
   spacy_git_version: aea4a96f9
 train-sm:
@@ -455,7 +521,7 @@ package-md:
 init-labels:
   cmd: python -m spacy run init-labels
   script:
-    - python -m spacy init labels  configs/config-md.cfg corpus/labels --gpu-id -1  --paths.train
+    - python -m spacy init labels  configs/config.cfg corpus/labels --gpu-id -1  --paths.train
       corpus/train --paths.dev corpus/dev --nlp.lang=la --code scripts/functions.py
   deps:
     - path: corpus/train
@@ -464,8 +530,8 @@ init-labels:
       md5: 3feb17459dd0d09775fede46c8e0a8d3
     - path: corpus/test
       md5: cd66d444f39540bbd0c99cbec1bb7e50
-    - path: configs/config-md.cfg
-      md5: 33f4650d605d0af06468bee821896521
+    - path: configs/config.cfg
+      md5: 778ad8b838ac28c9ba4f877994d18a6c
   outs:
     - path: corpus/labels/morphologizer.json
       md5: b25cfe911b6cc586100bb952a232f127
@@ -480,16 +546,16 @@ init-labels:
 package:
   cmd: python -m spacy run package
   script:
-    - python -m spacy package  training/md/model-best packages  --name dep_cltk_md  --version
-      0.3.1 --meta data/meta.json --code scripts/functions.py --force
+    - python -m spacy package  training/model-assembled packages  --name core_web_md  --version
+      3.5.2 --meta data/meta.json --code scripts/functions.py --force --build wheel
   deps:
-    - path: training/md/model-best
-      md5: aead35dfed911fecf606621c3b6c70f1
+    - path: training/model-assembled
+      md5: 4b71e25040218722385ad9b37deb7e9b
   outs:
-    - path: packages/la_dep_cltk_md-0.3.1/dist/en_dep_cltk_md-0.3.1.tar.gz
+    - path: packages/la_core_web_md-3.5.2/dist/en_core_web_md-3.5.2.tar.gz
       md5: null
-  spacy_version: 3.5.1
-  spacy_git_version: 8153bd573
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
 clean:
   cmd: python -m spacy run clean
   script:
@@ -662,11 +728,43 @@ package-md-dep:
 assemble-meta:
   cmd: python -m spacy run assemble-meta
   script:
-    - python scripts/assemble_meta.py --dep_meta training/sm/model-best/meta.json
-      --ner_meta training/sm/ner/model-best/meta.json --assembled_meta training/sm/model-assembled/meta.json
-    - python scripts/assemble_meta.py --dep_meta training/md/model-best/meta.json
-      --ner_meta training/md/ner/model-best/meta.json --assembled_meta training/md/model-assembled/meta.json
+    - python scripts/assemble_meta.py --dep_meta training/model-best/meta.json --ner_meta
+      training/ner/model-best/meta.json --assembled_meta training/model-assembled/meta.json
   deps: []
   outs: []
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
+train-ner:
+  cmd: python -m spacy run train-ner
+  script:
+    - mkdir -p training/ner
+    - python -m spacy train configs/ner_config.cfg --output training/ner --paths.train
+      corpus/ner/train --paths.dev corpus/ner/dev --training.eval_frequency 10 --training.patience
+      50 --gpu-id -1 --code scripts/functions.py --initialize.vectors training/model-best
+  deps:
+    - path: configs/ner_config.cfg
+      md5: 5ebea7add8af30cf8893f75c1f2f5b14
+    - path: corpus/ner/train
+      md5: 2c5c7961937139431d356ecc6ac65c4e
+    - path: corpus/ner/dev
+      md5: 850e333e68476b3c5a681788e80a9b79
+  outs:
+    - path: training/ner/model-best
+      md5: 185d9fe375a8b1a75b4968a301d948e4
+  spacy_version: 3.5.2
+  spacy_git_version: aea4a96f9
+assemble:
+  cmd: python -m spacy run assemble
+  script:
+    - python -m spacy assemble configs/config-core.cfg training/model-assembled --code
+      scripts/functions.py
+  deps:
+    - path: training/model-best
+      md5: 7ebfa798fdc4d4a6fd490b18707c6f6f
+  outs:
+    - path: metrics/{vars.package_name}-{vars.package_version}.json
+      md5: null
+    - path: training/model-assembled
+      md5: a4dd5f8cff24763645d55e90fb59b837
   spacy_version: 3.5.2
   spacy_git_version: aea4a96f9

@@ -1,6 +1,6 @@
-CairoSVG==2.7.0
+conllu==4.5.2
+matplotlib==3.7.1
 numpy==1.23.5
 pandas==1.5.2
 scikit-learn==1.2.0
 spacy==3.5.2
-la_core_cltk_md@https://huggingface.co/diyclassics/la_core_cltk_md/resolve/main/la_core_cltk_md-3.5.0/dist/la_core_cltk_md-3.5.0.tar.gz

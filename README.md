@@ -2,7 +2,7 @@
 
 # 🪐 spaCy Project: la_core_web_md
 
-Code required to train spaCy-compatible md core model for Latin, i.e pipeline with POS tagger, morphologizer, lemmatizer, dependency parser, and NER trained on all available Latin UD treebanks, i.e. Perseus, PROIEL, ITTB, UDante, and LLCT (see below). The model contains floret vectors trained on Wikipedia, Oscar, and UD data. NER is based on custom tagged data based on tagger output and manual annotation, supplemented by data from the Herodotos Project; this data is included in `assets/ner/`. Note also that a sm model (i.e. without vectors) is trained in the same pipeline.
+Code required to train spaCy-compatible md core model for Latin, i.e pipeline with POS tagger, morphologizer, lemmatizer, dependency parser, and NER trained on all available Latin UD treebanks, i.e. Perseus, PROIEL, ITTB, UDante, and LLCT (see below). The model contains floret vectors (50,000) trained on Wikipedia, Oscar, and UD. NER is based on custom tagged data based on tagger output and manual annotation, supplemented by data from the Herodotos Project; this data is included in `assets/ner/`.
 
 ## 📋 project.yml
 
@@ -22,27 +22,14 @@ Commands are only re-run if their inputs have changed.
 | `preprocess` | Convert different UD treebanks so that they use shared formatting, feature defs, etc. |
 | `convert` | Convert the data to spaCy's format |
 | `norm-corpus` | Convert norm attribute to u-v and i-j norm |
-| `extract-wikipedia` | Convert Wikipedia XML to JSONL with wikiextractor |
-| `tokenize-wikipedia` | Tokenize and sentencize Wikipedia |
-| `tokenize-oscar` | Tokenize and sentencize OSCAR dataset |
-| `tokenize-ud` | Tokenize and sentencize UD; following wikipedia/oscar pattern |
-| `create-input` | Concatenate tokenized input texts |
-| `train-floret-vectors` | Train floret vectors |
-| `load-vectors` | Load floret vectors |
 | `init-labels` | Initialize labels for components |
-| `train-sm` | Train sm tagger/parser/etc. on Latin UD treebanks |
-| `train` | Train md tagger/parser/etc. on Latin UD treebanks |
-| `evaluate-sm` | Evaluate sm model on the test data and save the metrics |
-| `evaluate` | Evaluate md model on the test data and save the metrics |
+| `train` | Train tagger/parser/etc. on Latin UD treebanks |
+| `evaluate` | Evaluate model on the test data and save the metrics |
 | `convert-ner` | Convert the NER data to spaCy's binary format |
-| `create-ner-config` | Create a new config with an NER pipeline component |
-| `train-ner-sm` | Train the NER model for the sm model |
-| `train-ner-md` | Train the NER model for the md model |
-| `assemble-sm-core` | Assemble sm core model, i.e. add NER component to dep model |
-| `assemble-md-core` | Assemble md core model, i.e. add NER component to dep model |
+| `train-ner` | Train the NER model for the model |
+| `assemble` | Assemble core model, i.e. add NER component to dep model |
 | `assemble-meta` | Assemble meta.json files so that all metrics are included |
-| `package-sm-core` | Package the trained sm core model |
-| `package-md-core` | Package the trained md core model |
+| `package` | Package the trained core model |
 | `document` | Document core_web_md |
 | `clean` | Remove intermediate files |
 
@@ -55,7 +42,7 @@ inputs have changed.
 
 | Workflow | Steps |
 | --- | --- |
-| `all` | `assets` &rarr; `preprocess` &rarr; `convert` &rarr; `norm-corpus` &rarr; `extract-wikipedia` &rarr; `tokenize-wikipedia` &rarr; `tokenize-oscar` &rarr; `tokenize-ud` &rarr; `create-input` &rarr; `train-floret-vectors` &rarr; `load-vectors` &rarr; `init-labels` &rarr; `train-sm` &rarr; `train` &rarr; `evaluate-sm` &rarr; `evaluate` &rarr; `convert-ner` &rarr; `create-ner-config` &rarr; `train-ner-sm` &rarr; `train-ner-md` &rarr; `assemble-sm-core` &rarr; `assemble-md-core` &rarr; `assemble-meta` &rarr; `package-sm-core` &rarr; `package-md-core` &rarr; `document` &rarr; `clean` |
+| `all` | `assets` &rarr; `preprocess` &rarr; `convert` &rarr; `norm-corpus` &rarr; `init-labels` &rarr; `train` &rarr; `evaluate` &rarr; `convert-ner` &rarr; `train-ner` &rarr; `assemble` &rarr; `assemble-meta` &rarr; `package` &rarr; `document` |
 
 ### 🗂 Assets
 
@@ -70,7 +57,6 @@ in the project directory.
 | `assets/original/UD_Latin-ITTB` | Git |  |
 | `assets/original/UD_Latin-LLCT` | Git |  |
 | `assets/original/UD_Latin-UDante` | Git |  |
-| `vectors/downloaded/wikipedia/lawiki-latest-pages-articles.xml.bz2` | URL |  |
 
 <!-- SPACY PROJECT: AUTO-GENERATED DOCS END (do not remove) -->
 
@@ -89,39 +75,38 @@ in the project directory.
 | Feature | Description |
 | --- | --- |
 | **Name** | `la_core_web_md` |
-| **Version** | `3.5.1` |
+| **Version** | `3.5.2` |
 | **spaCy** | `>=3.5.2,<3.6.0` |
 | **Default Pipeline** | `normer`, `tok2vec`, `tagger`, `morphologizer`, `trainable_lemmatizer`, `parser`, `lemma_fixer`, `ner` |
 | **Components** | `senter`, `normer`, `tok2vec`, `tagger`, `morphologizer`, `trainable_lemmatizer`, `parser`, `lemma_fixer`, `ner` |
 | **Vectors** | -1 keys, 50000 unique vectors (300 dimensions) |
-| **Sources** | UD_Latin-Perseus<br />UD_Latin-PROIEL<br />UD_Latin-ITTB<br />UD_Latin-LLCT<br />UD_Latin-UDante<br /> [Herodotos Project](https://github.com/Herodotos-Project/Herodotos-Project-Latin-NER-Tagger-Annotation/tree/master/Annotation_1-1-19) |
+| **Sources** | UD_Latin-Perseus<br />UD_Latin-PROIEL<br />UD_Latin-ITTB<br />UD_Latin-LLCT<br />UD_Latin-UDante |
 | **License** | `MIT` |
-| **Author** | [Patrick J. Burns; with Nora Bernhardt [ner], Tim Geelhaar [tagger, morphologizer, parser], Vincent Koch [ner]](https://diyclassics.github.io/) |
-
+| **Author** | [Patrick J. Burns; with Nora Bernhardt [ner], Tim Geelhaar [tagger, morphologizer, parser, ner], Vincent Koch [ner]](https://diyclassics.github.io/) |
 
 ### Accuracy
 
 | Type | Score |
 | --- | --- |
-| `ENTS_F` | 85.27 |
-| `ENTS_P` | 82.34 |
-| `ENTS_R` | 88.41 |
-| `NER_LOSS` | 3268.99 |
-| `NER_TOK2VEC_LOSS` | 488.66 |
-| `SENTS_F` | 92.75 |
-| `SENTS_P` | 93.09 |
-| `SENTS_R` | 92.41 |
-| `TAG_ACC` | 93.58 |
-| `POS_ACC` | 96.92 |
-| `MORPH_ACC` | 91.72 |
-| `LEMMA_ACC` | 94.25 |
-| `DEP_UAS` | 81.86 |
-| `DEP_LAS` | 75.84 |
-| `TOK2VEC_LOSS` | 8284457.01 |
-| `TAGGER_LOSS` | 913771.50 |
-| `MORPHOLOGIZER_LOSS` | 1997175.68 |
-| `TRAINABLE_LEMMATIZER_LOSS` | 761110.79 |
-| `PARSER_LOSS` | 6647260.73 |
+| `ENTS_F` | 85.62 |
+| `ENTS_P` | 82.37 |
+| `ENTS_R` | 89.12 |
+| `NER_LOSS` | 4022.72 |
+| `NER_TOK2VEC_LOSS` | 519.13 |
+| `SENTS_F` | 93.30 |
+| `SENTS_P` | 92.70 |
+| `SENTS_R` | 93.90 |
+| `TAG_ACC` | 93.57 |
+| `POS_ACC` | 96.87 |
+| `MORPH_ACC` | 91.75 |
+| `LEMMA_ACC` | 94.17 |
+| `DEP_UAS` | 81.94 |
+| `DEP_LAS` | 75.86 |
+| `TOK2VEC_LOSS` | 8302715.33 |
+| `TAGGER_LOSS` | 927840.47 |
+| `MORPHOLOGIZER_LOSS` | 1996080.55 |
+| `TRAINABLE_LEMMATIZER_LOSS` | 769005.09 |
+| `PARSER_LOSS` | 6609683.39 |
 
 NB: For full details on tags etc., see the README.md in the model package.
 
